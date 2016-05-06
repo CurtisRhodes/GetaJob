@@ -1,0 +1,261 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="curtisGodaddyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Agency">
+    <Key>
+      <PropertyRef Name="AgencyId" />
+    </Key>
+    <Property Name="AgencyId" Type="int" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="200" />
+    <Property Name="StreetAddress" Type="varchar" MaxLength="150" />
+    <Property Name="City" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="State" Type="char" MaxLength="2" />
+    <Property Name="Zip" Type="varchar" MaxLength="15" />
+    <Property Name="WorkPhone" Type="varchar" MaxLength="50" />
+    <Property Name="CellPhone" Type="varchar" MaxLength="50" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Agent">
+    <Key>
+      <PropertyRef Name="AgentId" />
+    </Key>
+    <Property Name="AgentId" Type="int" Nullable="false" />
+    <Property Name="AgencyId" Type="int" />
+    <Property Name="AgentName" Type="varchar" MaxLength="350" />
+    <Property Name="WorkPhone" Type="varchar" MaxLength="50" />
+    <Property Name="CellPhone" Type="varchar" MaxLength="50" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'curtisGodaddy.dbo.DropDownValues' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="DropDownValues">
+    <Key>
+      <PropertyRef Name="RefCode" />
+      <PropertyRef Name="RefDescription" />
+    </Key>
+    <Property Name="RefType" Type="int" />
+    <Property Name="RefCode" Type="int" Nullable="false" />
+    <Property Name="RefDescription" Type="varchar" MaxLength="250" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'curtisGodaddy.dbo.GetaJob_User' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="GetaJob_User">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="FirstName" Type="varchar" MaxLength="50" />
+    <Property Name="LastName" Type="varchar" MaxLength="50" />
+    <Property Name="UserName" Type="varchar" MaxLength="50" />
+    <Property Name="Password" Type="varchar" MaxLength="500" />
+    <Property Name="CurrentJobSearchId" Type="int" />
+    <Property Name="dob" Type="date" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'curtisGodaddy.dbo.Job' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Job">
+    <Key>
+      <PropertyRef Name="JobId" />
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="CompanyId" />
+    </Key>
+    <Property Name="JobId" Type="int" Nullable="false" />
+    <Property Name="UserId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CompanyId" Type="int" Nullable="false" />
+    <Property Name="DateOfEmployment" Type="date" />
+    <Property Name="Terminated" Type="date" />
+    <Property Name="Explanation" Type="varchar(max)" />
+    <Property Name="JobTitle" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="JobListing">
+    <Key>
+      <PropertyRef Name="JobListingId" />
+    </Key>
+    <Property Name="JobListingId" Type="int" Nullable="false" />
+    <Property Name="JobSearchId" Type="int" />
+    <Property Name="PostedDate" Type="date" />
+    <Property Name="ListingStatus" Type="int" />
+    <Property Name="AgentId" Type="int" />
+    <Property Name="TargetCompanyId" Type="int" />
+    <Property Name="JobTitle" Type="varchar" MaxLength="250" />
+    <Property Name="Rate" Type="varchar" MaxLength="50" />
+    <Property Name="EmploymentType" Type="int" />
+    <Property Name="Comments" Type="text" />
+    <Property Name="Distance" Type="varchar" MaxLength="150" />
+    <Property Name="ListingSource" Type="int" />
+    <Property Name="Desirability" Type="int" />
+    <Property Name="Fit" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'curtisGodaddy.dbo.JobListingRequirement' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="JobListingRequirement">
+    <Key>
+      <PropertyRef Name="JobListingRequirementId" />
+    </Key>
+    <Property Name="JobListingRequirementId" Type="int" Nullable="false" />
+    <Property Name="JobListingId" Type="int" />
+    <Property Name="JobSkillId" Type="int" />
+    <Property Name="DesiredId" Type="int" />
+  </EntityType>
+  <EntityType Name="JobSearch">
+    <Key>
+      <PropertyRef Name="JobSearchId" />
+    </Key>
+    <Property Name="JobSearchId" Type="int" Nullable="false" />
+    <Property Name="Start" Type="date" Nullable="false" />
+    <Property Name="Completed" Type="date" />
+    <Property Name="Description" Type="varchar" MaxLength="950" />
+    <Property Name="UserId" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="JobSearchActivity">
+    <Key>
+      <PropertyRef Name="JobSearchActivityId" />
+    </Key>
+    <Property Name="JobSearchActivityId" Type="int" Nullable="false" />
+    <Property Name="JobListingId" Type="int" />
+    <Property Name="ActivityDate" Type="date" Nullable="false" />
+    <Property Name="ActivityStatus" Type="int" />
+    <Property Name="Comments" Type="varchar" MaxLength="600" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'curtisGodaddy.dbo.JobSkill' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="JobSkill">
+    <Key>
+      <PropertyRef Name="JobSkillId" />
+      <PropertyRef Name="JoId" />
+    </Key>
+    <Property Name="JobSkillId" Type="int" Nullable="false" />
+    <Property Name="JoId" Type="int" Nullable="false" />
+    <Property Name="JobSkillTitle" Type="varchar" MaxLength="250" />
+    <Property Name="JobSkill" Type="varchar(max)" />
+    <Property Name="JobSkillType" Type="int" />
+  </EntityType>
+  <EntityType Name="TargetCompany">
+    <Key>
+      <PropertyRef Name="CompanyId" />
+    </Key>
+    <Property Name="CompanyId" Type="int" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="200" />
+    <Property Name="StreetAddress" Type="varchar" MaxLength="150" />
+    <Property Name="City" Type="varchar" MaxLength="150" />
+    <Property Name="State" Type="char" MaxLength="2" />
+    <Property Name="Zip" Type="varchar" MaxLength="15" />
+  </EntityType>
+  <Association Name="FK_Agent_Agency">
+    <End Role="Agency" Type="Self.Agency" Multiplicity="0..1" />
+    <End Role="Agent" Type="Self.Agent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Agency">
+        <PropertyRef Name="AgencyId" />
+      </Principal>
+      <Dependent Role="Agent">
+        <PropertyRef Name="AgencyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_JobListing_Agent">
+    <End Role="Agent" Type="Self.Agent" Multiplicity="0..1" />
+    <End Role="JobListing" Type="Self.JobListing" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Agent">
+        <PropertyRef Name="AgentId" />
+      </Principal>
+      <Dependent Role="JobListing">
+        <PropertyRef Name="AgentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_JobListing_JobSearch">
+    <End Role="JobSearch" Type="Self.JobSearch" Multiplicity="0..1" />
+    <End Role="JobListing" Type="Self.JobListing" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JobSearch">
+        <PropertyRef Name="JobSearchId" />
+      </Principal>
+      <Dependent Role="JobListing">
+        <PropertyRef Name="JobSearchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_JobListing_TargetCompany">
+    <End Role="TargetCompany" Type="Self.TargetCompany" Multiplicity="0..1" />
+    <End Role="JobListing" Type="Self.JobListing" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TargetCompany">
+        <PropertyRef Name="CompanyId" />
+      </Principal>
+      <Dependent Role="JobListing">
+        <PropertyRef Name="TargetCompanyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="curtisGodaddyModelStoreContainer">
+    <EntitySet Name="Agency" EntityType="Self.Agency" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Agent" EntityType="Self.Agent" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="JobListing" EntityType="Self.JobListing" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="JobSearch" EntityType="Self.JobSearch" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="JobSearchActivity" EntityType="Self.JobSearchActivity" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TargetCompany" EntityType="Self.TargetCompany" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DropDownValues" EntityType="Self.DropDownValues" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [DropDownValues].[RefType] AS [RefType], 
+    [DropDownValues].[RefCode] AS [RefCode], 
+    [DropDownValues].[RefDescription] AS [RefDescription]
+    FROM [dbo].[DropDownValues] AS [DropDownValues]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="GetaJob_User" EntityType="Self.GetaJob_User" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [GetaJob_User].[UserId] AS [UserId], 
+    [GetaJob_User].[FirstName] AS [FirstName], 
+    [GetaJob_User].[LastName] AS [LastName], 
+    [GetaJob_User].[UserName] AS [UserName], 
+    [GetaJob_User].[Password] AS [Password], 
+    [GetaJob_User].[CurrentJobSearchId] AS [CurrentJobSearchId], 
+    [GetaJob_User].[dob] AS [dob]
+    FROM [dbo].[GetaJob_User] AS [GetaJob_User]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Job" EntityType="Self.Job" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Job].[JobId] AS [JobId], 
+    [Job].[UserId] AS [UserId], 
+    [Job].[CompanyId] AS [CompanyId], 
+    [Job].[DateOfEmployment] AS [DateOfEmployment], 
+    [Job].[Terminated] AS [Terminated], 
+    [Job].[Explanation] AS [Explanation], 
+    [Job].[JobTitle] AS [JobTitle]
+    FROM [dbo].[Job] AS [Job]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="JobListingRequirement" EntityType="Self.JobListingRequirement" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [JobListingRequirement].[JobListingRequirementId] AS [JobListingRequirementId], 
+    [JobListingRequirement].[JobListingId] AS [JobListingId], 
+    [JobListingRequirement].[JobSkillId] AS [JobSkillId], 
+    [JobListingRequirement].[DesiredId] AS [DesiredId]
+    FROM [dbo].[JobListingRequirement] AS [JobListingRequirement]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="JobSkill" EntityType="Self.JobSkill" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [JobSkill].[JobSkillId] AS [JobSkillId], 
+    [JobSkill].[JoId] AS [JoId], 
+    [JobSkill].[JobSkillTitle] AS [JobSkillTitle], 
+    [JobSkill].[JobSkill] AS [JobSkill], 
+    [JobSkill].[JobSkillType] AS [JobSkillType]
+    FROM [dbo].[JobSkill] AS [JobSkill]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_Agent_Agency" Association="Self.FK_Agent_Agency">
+      <End Role="Agency" EntitySet="Agency" />
+      <End Role="Agent" EntitySet="Agent" />
+    </AssociationSet>
+    <AssociationSet Name="FK_JobListing_Agent" Association="Self.FK_JobListing_Agent">
+      <End Role="Agent" EntitySet="Agent" />
+      <End Role="JobListing" EntitySet="JobListing" />
+    </AssociationSet>
+    <AssociationSet Name="FK_JobListing_JobSearch" Association="Self.FK_JobListing_JobSearch">
+      <End Role="JobSearch" EntitySet="JobSearch" />
+      <End Role="JobListing" EntitySet="JobListing" />
+    </AssociationSet>
+    <AssociationSet Name="FK_JobListing_TargetCompany" Association="Self.FK_JobListing_TargetCompany">
+      <End Role="TargetCompany" EntitySet="TargetCompany" />
+      <End Role="JobListing" EntitySet="JobListing" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

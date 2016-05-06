@@ -1,0 +1,651 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="curtisGodaddyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Agency">
+          <Key>
+            <PropertyRef Name="AgencyId" />
+          </Key>
+          <Property Name="AgencyId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="200" />
+          <Property Name="StreetAddress" Type="varchar" MaxLength="150" />
+          <Property Name="City" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="State" Type="char" MaxLength="2" />
+          <Property Name="Zip" Type="varchar" MaxLength="15" />
+          <Property Name="WorkPhone" Type="varchar" MaxLength="50" />
+          <Property Name="CellPhone" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Agent">
+          <Key>
+            <PropertyRef Name="AgentId" />
+          </Key>
+          <Property Name="AgentId" Type="int" Nullable="false" />
+          <Property Name="AgencyId" Type="int" />
+          <Property Name="AgentName" Type="varchar" MaxLength="350" />
+          <Property Name="WorkPhone" Type="varchar" MaxLength="50" />
+          <Property Name="CellPhone" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'curtisGodaddy.dbo.DropDownValues' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="DropDownValues">
+          <Key>
+            <PropertyRef Name="RefCode" />
+            <PropertyRef Name="RefDescription" />
+          </Key>
+          <Property Name="RefType" Type="int" />
+          <Property Name="RefCode" Type="int" Nullable="false" />
+          <Property Name="RefDescription" Type="varchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'curtisGodaddy.dbo.GetaJob_User' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="GetaJob_User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="500" />
+          <Property Name="CurrentJobSearchId" Type="int" />
+          <Property Name="dob" Type="date" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'curtisGodaddy.dbo.Job' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Job">
+          <Key>
+            <PropertyRef Name="JobId" />
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="CompanyId" />
+          </Key>
+          <Property Name="JobId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CompanyId" Type="int" Nullable="false" />
+          <Property Name="DateOfEmployment" Type="date" />
+          <Property Name="Terminated" Type="date" />
+          <Property Name="Explanation" Type="varchar(max)" />
+          <Property Name="JobTitle" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="JobListing">
+          <Key>
+            <PropertyRef Name="JobListingId" />
+          </Key>
+          <Property Name="JobListingId" Type="int" Nullable="false" />
+          <Property Name="JobSearchId" Type="int" />
+          <Property Name="PostedDate" Type="date" />
+          <Property Name="ListingStatus" Type="int" />
+          <Property Name="AgentId" Type="int" />
+          <Property Name="TargetCompanyId" Type="int" />
+          <Property Name="JobTitle" Type="varchar" MaxLength="250" />
+          <Property Name="Rate" Type="varchar" MaxLength="50" />
+          <Property Name="EmploymentType" Type="int" />
+          <Property Name="Comments" Type="text" />
+          <Property Name="Distance" Type="varchar" MaxLength="150" />
+          <Property Name="ListingSource" Type="int" />
+          <Property Name="Desirability" Type="int" />
+          <Property Name="Fit" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'curtisGodaddy.dbo.JobListingRequirement' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="JobListingRequirement">
+          <Key>
+            <PropertyRef Name="JobListingRequirementId" />
+          </Key>
+          <Property Name="JobListingRequirementId" Type="int" Nullable="false" />
+          <Property Name="JobListingId" Type="int" />
+          <Property Name="JobSkillId" Type="int" />
+          <Property Name="DesiredId" Type="int" />
+        </EntityType>
+        <EntityType Name="JobSearch">
+          <Key>
+            <PropertyRef Name="JobSearchId" />
+          </Key>
+          <Property Name="JobSearchId" Type="int" Nullable="false" />
+          <Property Name="Start" Type="date" Nullable="false" />
+          <Property Name="Completed" Type="date" />
+          <Property Name="Description" Type="varchar" MaxLength="950" />
+          <Property Name="UserId" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="JobSearchActivity">
+          <Key>
+            <PropertyRef Name="JobSearchActivityId" />
+          </Key>
+          <Property Name="JobSearchActivityId" Type="int" Nullable="false" />
+          <Property Name="JobListingId" Type="int" />
+          <Property Name="ActivityDate" Type="date" Nullable="false" />
+          <Property Name="ActivityStatus" Type="int" />
+          <Property Name="Comments" Type="varchar" MaxLength="600" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'curtisGodaddy.dbo.JobSkill' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="JobSkill">
+          <Key>
+            <PropertyRef Name="JobSkillId" />
+            <PropertyRef Name="JoId" />
+          </Key>
+          <Property Name="JobSkillId" Type="int" Nullable="false" />
+          <Property Name="JoId" Type="int" Nullable="false" />
+          <Property Name="JobSkillTitle" Type="varchar" MaxLength="250" />
+          <Property Name="JobSkill" Type="varchar(max)" />
+          <Property Name="JobSkillType" Type="int" />
+        </EntityType>
+        <EntityType Name="TargetCompany">
+          <Key>
+            <PropertyRef Name="CompanyId" />
+          </Key>
+          <Property Name="CompanyId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="200" />
+          <Property Name="StreetAddress" Type="varchar" MaxLength="150" />
+          <Property Name="City" Type="varchar" MaxLength="150" />
+          <Property Name="State" Type="char" MaxLength="2" />
+          <Property Name="Zip" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <Association Name="FK_Agent_Agency">
+          <End Role="Agency" Type="Self.Agency" Multiplicity="0..1" />
+          <End Role="Agent" Type="Self.Agent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agency">
+              <PropertyRef Name="AgencyId" />
+            </Principal>
+            <Dependent Role="Agent">
+              <PropertyRef Name="AgencyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JobListing_Agent">
+          <End Role="Agent" Type="Self.Agent" Multiplicity="0..1" />
+          <End Role="JobListing" Type="Self.JobListing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agent">
+              <PropertyRef Name="AgentId" />
+            </Principal>
+            <Dependent Role="JobListing">
+              <PropertyRef Name="AgentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JobListing_JobSearch">
+          <End Role="JobSearch" Type="Self.JobSearch" Multiplicity="0..1" />
+          <End Role="JobListing" Type="Self.JobListing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JobSearch">
+              <PropertyRef Name="JobSearchId" />
+            </Principal>
+            <Dependent Role="JobListing">
+              <PropertyRef Name="JobSearchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JobListing_TargetCompany">
+          <End Role="TargetCompany" Type="Self.TargetCompany" Multiplicity="0..1" />
+          <End Role="JobListing" Type="Self.JobListing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TargetCompany">
+              <PropertyRef Name="CompanyId" />
+            </Principal>
+            <Dependent Role="JobListing">
+              <PropertyRef Name="TargetCompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="curtisGodaddyModelStoreContainer">
+          <EntitySet Name="Agency" EntityType="Self.Agency" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Agent" EntityType="Self.Agent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JobListing" EntityType="Self.JobListing" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JobSearch" EntityType="Self.JobSearch" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JobSearchActivity" EntityType="Self.JobSearchActivity" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TargetCompany" EntityType="Self.TargetCompany" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DropDownValues" EntityType="Self.DropDownValues" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [DropDownValues].[RefType] AS [RefType], 
+    [DropDownValues].[RefCode] AS [RefCode], 
+    [DropDownValues].[RefDescription] AS [RefDescription]
+    FROM [dbo].[DropDownValues] AS [DropDownValues]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="GetaJob_User" EntityType="Self.GetaJob_User" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [GetaJob_User].[UserId] AS [UserId], 
+    [GetaJob_User].[FirstName] AS [FirstName], 
+    [GetaJob_User].[LastName] AS [LastName], 
+    [GetaJob_User].[UserName] AS [UserName], 
+    [GetaJob_User].[Password] AS [Password], 
+    [GetaJob_User].[CurrentJobSearchId] AS [CurrentJobSearchId], 
+    [GetaJob_User].[dob] AS [dob]
+    FROM [dbo].[GetaJob_User] AS [GetaJob_User]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Job" EntityType="Self.Job" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Job].[JobId] AS [JobId], 
+    [Job].[UserId] AS [UserId], 
+    [Job].[CompanyId] AS [CompanyId], 
+    [Job].[DateOfEmployment] AS [DateOfEmployment], 
+    [Job].[Terminated] AS [Terminated], 
+    [Job].[Explanation] AS [Explanation], 
+    [Job].[JobTitle] AS [JobTitle]
+    FROM [dbo].[Job] AS [Job]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="JobListingRequirement" EntityType="Self.JobListingRequirement" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [JobListingRequirement].[JobListingRequirementId] AS [JobListingRequirementId], 
+    [JobListingRequirement].[JobListingId] AS [JobListingId], 
+    [JobListingRequirement].[JobSkillId] AS [JobSkillId], 
+    [JobListingRequirement].[DesiredId] AS [DesiredId]
+    FROM [dbo].[JobListingRequirement] AS [JobListingRequirement]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="JobSkill" EntityType="Self.JobSkill" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [JobSkill].[JobSkillId] AS [JobSkillId], 
+    [JobSkill].[JoId] AS [JoId], 
+    [JobSkill].[JobSkillTitle] AS [JobSkillTitle], 
+    [JobSkill].[JobSkill] AS [JobSkill], 
+    [JobSkill].[JobSkillType] AS [JobSkillType]
+    FROM [dbo].[JobSkill] AS [JobSkill]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Agent_Agency" Association="Self.FK_Agent_Agency">
+            <End Role="Agency" EntitySet="Agency" />
+            <End Role="Agent" EntitySet="Agent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JobListing_Agent" Association="Self.FK_JobListing_Agent">
+            <End Role="Agent" EntitySet="Agent" />
+            <End Role="JobListing" EntitySet="JobListing" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JobListing_JobSearch" Association="Self.FK_JobListing_JobSearch">
+            <End Role="JobSearch" EntitySet="JobSearch" />
+            <End Role="JobListing" EntitySet="JobListing" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JobListing_TargetCompany" Association="Self.FK_JobListing_TargetCompany">
+            <End Role="TargetCompany" EntitySet="TargetCompany" />
+            <End Role="JobListing" EntitySet="JobListing" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="curtisGodaddyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="curtisGodaddyEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Agencies" EntityType="curtisGodaddyModel.Agency" />
+          <EntitySet Name="Agents" EntityType="curtisGodaddyModel.Agent" />
+          <EntitySet Name="JobListings" EntityType="curtisGodaddyModel.JobListing" />
+          <EntitySet Name="JobSearches" EntityType="curtisGodaddyModel.JobSearch" />
+          <EntitySet Name="JobSearchActivities" EntityType="curtisGodaddyModel.JobSearchActivity" />
+          <EntitySet Name="TargetCompanies" EntityType="curtisGodaddyModel.TargetCompany" />
+          <EntitySet Name="DropDownValues" EntityType="curtisGodaddyModel.DropDownValue" />
+          <EntitySet Name="GetaJob_User" EntityType="curtisGodaddyModel.GetaJob_User" />
+          <EntitySet Name="Jobs" EntityType="curtisGodaddyModel.Job" />
+          <EntitySet Name="JobListingRequirements" EntityType="curtisGodaddyModel.JobListingRequirement" />
+          <EntitySet Name="JobSkills" EntityType="curtisGodaddyModel.JobSkill" />
+          <AssociationSet Name="FK_Agent_Agency" Association="curtisGodaddyModel.FK_Agent_Agency">
+            <End Role="Agency" EntitySet="Agencies" />
+            <End Role="Agent" EntitySet="Agents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JobListing_Agent" Association="curtisGodaddyModel.FK_JobListing_Agent">
+            <End Role="Agent" EntitySet="Agents" />
+            <End Role="JobListing" EntitySet="JobListings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JobListing_JobSearch" Association="curtisGodaddyModel.FK_JobListing_JobSearch">
+            <End Role="JobSearch" EntitySet="JobSearches" />
+            <End Role="JobListing" EntitySet="JobListings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JobListing_TargetCompany" Association="curtisGodaddyModel.FK_JobListing_TargetCompany">
+            <End Role="TargetCompany" EntitySet="TargetCompanies" />
+            <End Role="JobListing" EntitySet="JobListings" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Agency">
+          <Key>
+            <PropertyRef Name="AgencyId" />
+          </Key>
+          <Property Name="AgencyId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="StreetAddress" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="State" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="Zip" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="WorkPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CellPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Agents" Relationship="curtisGodaddyModel.FK_Agent_Agency" FromRole="Agency" ToRole="Agent" />
+        </EntityType>
+        <EntityType Name="Agent">
+          <Key>
+            <PropertyRef Name="AgentId" />
+          </Key>
+          <Property Name="AgentId" Type="Int32" Nullable="false" />
+          <Property Name="AgencyId" Type="Int32" />
+          <Property Name="AgentName" Type="String" MaxLength="350" FixedLength="false" Unicode="false" />
+          <Property Name="WorkPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CellPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Agency" Relationship="curtisGodaddyModel.FK_Agent_Agency" FromRole="Agent" ToRole="Agency" />
+          <NavigationProperty Name="JobListings" Relationship="curtisGodaddyModel.FK_JobListing_Agent" FromRole="Agent" ToRole="JobListing" />
+        </EntityType>
+        <EntityType Name="JobListing">
+          <Key>
+            <PropertyRef Name="JobListingId" />
+          </Key>
+          <Property Name="JobListingId" Type="Int32" Nullable="false" />
+          <Property Name="JobSearchId" Type="Int32" />
+          <Property Name="PostedDate" Type="DateTime" Precision="0" />
+          <Property Name="ListingStatus" Type="Int32" />
+          <Property Name="AgentId" Type="Int32" />
+          <Property Name="TargetCompanyId" Type="Int32" />
+          <Property Name="JobTitle" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Rate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmploymentType" Type="Int32" />
+          <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Distance" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="ListingSource" Type="Int32" />
+          <Property Name="Desirability" Type="Int32" />
+          <Property Name="Fit" Type="Int32" />
+          <NavigationProperty Name="Agent" Relationship="curtisGodaddyModel.FK_JobListing_Agent" FromRole="JobListing" ToRole="Agent" />
+          <NavigationProperty Name="JobSearch" Relationship="curtisGodaddyModel.FK_JobListing_JobSearch" FromRole="JobListing" ToRole="JobSearch" />
+          <NavigationProperty Name="TargetCompany" Relationship="curtisGodaddyModel.FK_JobListing_TargetCompany" FromRole="JobListing" ToRole="TargetCompany" />
+        </EntityType>
+        <EntityType Name="JobSearch">
+          <Key>
+            <PropertyRef Name="JobSearchId" />
+          </Key>
+          <Property Name="JobSearchId" Type="Int32" Nullable="false" />
+          <Property Name="Start" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Completed" Type="DateTime" Precision="0" />
+          <Property Name="Description" Type="String" MaxLength="950" FixedLength="false" Unicode="false" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="JobListings" Relationship="curtisGodaddyModel.FK_JobListing_JobSearch" FromRole="JobSearch" ToRole="JobListing" />
+        </EntityType>
+        <EntityType Name="JobSearchActivity">
+          <Key>
+            <PropertyRef Name="JobSearchActivityId" />
+          </Key>
+          <Property Name="JobSearchActivityId" Type="Int32" Nullable="false" />
+          <Property Name="JobListingId" Type="Int32" />
+          <Property Name="ActivityDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ActivityStatus" Type="Int32" />
+          <Property Name="Comments" Type="String" MaxLength="600" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TargetCompany">
+          <Key>
+            <PropertyRef Name="CompanyId" />
+          </Key>
+          <Property Name="CompanyId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="StreetAddress" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="State" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="Zip" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="JobListings" Relationship="curtisGodaddyModel.FK_JobListing_TargetCompany" FromRole="TargetCompany" ToRole="JobListing" />
+        </EntityType>
+        <EntityType Name="DropDownValue">
+          <Key>
+            <PropertyRef Name="RefCode" />
+            <PropertyRef Name="RefDescription" />
+          </Key>
+          <Property Name="RefType" Type="Int32" />
+          <Property Name="RefCode" Type="Int32" Nullable="false" />
+          <Property Name="RefDescription" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="GetaJob_User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="CurrentJobSearchId" Type="Int32" />
+          <Property Name="dob" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="Job">
+          <Key>
+            <PropertyRef Name="JobId" />
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="CompanyId" />
+          </Key>
+          <Property Name="JobId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CompanyId" Type="Int32" Nullable="false" />
+          <Property Name="DateOfEmployment" Type="DateTime" Precision="0" />
+          <Property Name="Terminated" Type="DateTime" Precision="0" />
+          <Property Name="Explanation" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="JobTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="JobListingRequirement">
+          <Key>
+            <PropertyRef Name="JobListingRequirementId" />
+          </Key>
+          <Property Name="JobListingRequirementId" Type="Int32" Nullable="false" />
+          <Property Name="JobListingId" Type="Int32" />
+          <Property Name="JobSkillId" Type="Int32" />
+          <Property Name="DesiredId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="JobSkill">
+          <Key>
+            <PropertyRef Name="JobSkillId" />
+            <PropertyRef Name="JoId" />
+          </Key>
+          <Property Name="JobSkillId" Type="Int32" Nullable="false" />
+          <Property Name="JoId" Type="Int32" Nullable="false" />
+          <Property Name="JobSkillTitle" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="JobSkill1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="JobSkillType" Type="Int32" />
+        </EntityType>
+        <Association Name="FK_Agent_Agency">
+          <End Type="curtisGodaddyModel.Agency" Role="Agency" Multiplicity="0..1" />
+          <End Type="curtisGodaddyModel.Agent" Role="Agent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agency">
+              <PropertyRef Name="AgencyId" />
+            </Principal>
+            <Dependent Role="Agent">
+              <PropertyRef Name="AgencyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JobListing_Agent">
+          <End Type="curtisGodaddyModel.Agent" Role="Agent" Multiplicity="0..1" />
+          <End Type="curtisGodaddyModel.JobListing" Role="JobListing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agent">
+              <PropertyRef Name="AgentId" />
+            </Principal>
+            <Dependent Role="JobListing">
+              <PropertyRef Name="AgentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JobListing_JobSearch">
+          <End Type="curtisGodaddyModel.JobSearch" Role="JobSearch" Multiplicity="0..1" />
+          <End Type="curtisGodaddyModel.JobListing" Role="JobListing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JobSearch">
+              <PropertyRef Name="JobSearchId" />
+            </Principal>
+            <Dependent Role="JobListing">
+              <PropertyRef Name="JobSearchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JobListing_TargetCompany">
+          <End Type="curtisGodaddyModel.TargetCompany" Role="TargetCompany" Multiplicity="0..1" />
+          <End Type="curtisGodaddyModel.JobListing" Role="JobListing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TargetCompany">
+              <PropertyRef Name="CompanyId" />
+            </Principal>
+            <Dependent Role="JobListing">
+              <PropertyRef Name="TargetCompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="curtisGodaddyModelStoreContainer" CdmEntityContainer="curtisGodaddyEntities">
+          <EntitySetMapping Name="Agencies">
+            <EntityTypeMapping TypeName="curtisGodaddyModel.Agency">
+              <MappingFragment StoreEntitySet="Agency">
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="CellPhone" ColumnName="CellPhone" />
+                <ScalarProperty Name="WorkPhone" ColumnName="WorkPhone" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="StreetAddress" ColumnName="StreetAddress" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="AgencyId" ColumnName="AgencyId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Agents">
+            <EntityTypeMapping TypeName="curtisGodaddyModel.Agent">
+              <MappingFragment StoreEntitySet="Agent">
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="CellPhone" ColumnName="CellPhone" />
+                <ScalarProperty Name="WorkPhone" ColumnName="WorkPhone" />
+                <ScalarProperty Name="AgentName" ColumnName="AgentName" />
+                <ScalarProperty Name="AgencyId" ColumnName="AgencyId" />
+                <ScalarProperty Name="AgentId" ColumnName="AgentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JobListings">
+            <EntityTypeMapping TypeName="curtisGodaddyModel.JobListing">
+              <MappingFragment StoreEntitySet="JobListing">
+                <ScalarProperty Name="Fit" ColumnName="Fit" />
+                <ScalarProperty Name="Desirability" ColumnName="Desirability" />
+                <ScalarProperty Name="ListingSource" ColumnName="ListingSource" />
+                <ScalarProperty Name="Distance" ColumnName="Distance" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="EmploymentType" ColumnName="EmploymentType" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
+                <ScalarProperty Name="TargetCompanyId" ColumnName="TargetCompanyId" />
+                <ScalarProperty Name="AgentId" ColumnName="AgentId" />
+                <ScalarProperty Name="ListingStatus" ColumnName="ListingStatus" />
+                <ScalarProperty Name="PostedDate" ColumnName="PostedDate" />
+                <ScalarProperty Name="JobSearchId" ColumnName="JobSearchId" />
+                <ScalarProperty Name="JobListingId" ColumnName="JobListingId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JobSearches">
+            <EntityTypeMapping TypeName="curtisGodaddyModel.JobSearch">
+              <MappingFragment StoreEntitySet="JobSearch">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Completed" ColumnName="Completed" />
+                <ScalarProperty Name="Start" ColumnName="Start" />
+                <ScalarProperty Name="JobSearchId" ColumnName="JobSearchId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JobSearchActivities">
+            <EntityTypeMapping TypeName="curtisGodaddyModel.JobSearchActivity">
+              <MappingFragment StoreEntitySet="JobSearchActivity">
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="ActivityStatus" ColumnName="ActivityStatus" />
+                <ScalarProperty Name="ActivityDate" ColumnName="ActivityDate" />
+                <ScalarProperty Name="JobListingId" ColumnName="JobListingId" />
+                <ScalarProperty Name="JobSearchActivityId" ColumnName="JobSearchActivityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TargetCompanies">
+            <EntityTypeMapping TypeName="curtisGodaddyModel.TargetCompany">
+              <MappingFragment StoreEntitySet="TargetCompany">
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="StreetAddress" ColumnName="StreetAddress" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DropDownValues">
+            <EntityTypeMapping TypeName="curtisGodaddyModel.DropDownValue">
+              <MappingFragment StoreEntitySet="DropDownValues">
+                <ScalarProperty Name="RefDescription" ColumnName="RefDescription" />
+                <ScalarProperty Name="RefCode" ColumnName="RefCode" />
+                <ScalarProperty Name="RefType" ColumnName="RefType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GetaJob_User">
+            <EntityTypeMapping TypeName="curtisGodaddyModel.GetaJob_User">
+              <MappingFragment StoreEntitySet="GetaJob_User">
+                <ScalarProperty Name="dob" ColumnName="dob" />
+                <ScalarProperty Name="CurrentJobSearchId" ColumnName="CurrentJobSearchId" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Jobs">
+            <EntityTypeMapping TypeName="curtisGodaddyModel.Job">
+              <MappingFragment StoreEntitySet="Job">
+                <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
+                <ScalarProperty Name="Explanation" ColumnName="Explanation" />
+                <ScalarProperty Name="Terminated" ColumnName="Terminated" />
+                <ScalarProperty Name="DateOfEmployment" ColumnName="DateOfEmployment" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="JobId" ColumnName="JobId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JobListingRequirements">
+            <EntityTypeMapping TypeName="curtisGodaddyModel.JobListingRequirement">
+              <MappingFragment StoreEntitySet="JobListingRequirement">
+                <ScalarProperty Name="DesiredId" ColumnName="DesiredId" />
+                <ScalarProperty Name="JobSkillId" ColumnName="JobSkillId" />
+                <ScalarProperty Name="JobListingId" ColumnName="JobListingId" />
+                <ScalarProperty Name="JobListingRequirementId" ColumnName="JobListingRequirementId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JobSkills">
+            <EntityTypeMapping TypeName="curtisGodaddyModel.JobSkill">
+              <MappingFragment StoreEntitySet="JobSkill">
+                <ScalarProperty Name="JobSkillType" ColumnName="JobSkillType" />
+                <ScalarProperty Name="JobSkill1" ColumnName="JobSkill" />
+                <ScalarProperty Name="JobSkillTitle" ColumnName="JobSkillTitle" />
+                <ScalarProperty Name="JoId" ColumnName="JoId" />
+                <ScalarProperty Name="JobSkillId" ColumnName="JobSkillId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

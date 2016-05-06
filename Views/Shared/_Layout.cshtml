@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GetaJob - @ViewBag.Title </title>
+
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.21/themes/base/jquery-ui.css" type="text/css" />
+    <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.8.21/jquery-ui.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+
+        @Styles.Render("~/Styles/css")
+        @Styles.Render("~/Styles/jquery")
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/jqueryval")
+        @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/app.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div>
+            @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand getajobLogo" })
+            @Html.Partial("_LoginPartial")
+        </div>
+        <hr style="clear:both" />
+        <div class="container body-content">
+            <nav class="navbar">
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Job Search", "JobSearch", "JobSearch")</li>
+                        <li>@Html.ActionLink("Job Search Listings", "JobListing", "JobSearch")</li>
+                        <li>@Html.ActionLink("Resume", "JobSearch", "JobSearch")</li>
+                        <li>@Html.ActionLink("Admin", "Admin", "JobSearch")</li>
+                    </ul>
+                </div>
+            </nav>
+
+            @RenderBody()
+
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - Intelligent Design Software</p>
+            </footer>
+        </div>
+    </div>
+    <div id="ErrorMsg"></div>
+    <div id="divStatusMsg"></div>
+    <div id="divLoadingMsg">
+        <img src="~/Images/loading.gif" /><div id="divWaitMessage">Loading...</div>
+    </div>
+
+    <script>
+        var relativeUrl = '@Url.Content("~/")';
+
+        $.ajaxSetup({ cache: false });
+        $(function () { $(".datePicker").datepicker({ constrainInput: false }); });
+
+        $(window).resize(function () {
+            var windowHeight = $(window).height()
+            var bodyHeight = $('#divLayoutBody').height()
+            var footerTop = Math.max(windowHeight, bodyHeight);
+            if (windowHeight > bodyHeight) {
+                if (windowHeight - bodyHeight > 15)
+                    footerTop = windowHeight - 100;
+                else
+                    footerTop = bodyHeight + 750;
+            }
+            else
+                footerTop = bodyHeight + 100;
+
+            $('footer').css('top', footerTop);
+
+            //$('#spnWindowHeight').html(windowHeight)
+            //$('#spnBodyHeight').html(bodyHeight)
+            //$('#spnFooterTop').html(footerTop)
+            //var realFooterTop = $('#hrLayoutFooter').offset().top
+            //$('#spnRealFooterTop').html(realFooterTop)
+
+        })
+
+        $(window).resize();
+
+        function showLoadingMessage(message) {
+            $('#divWaitMessage').html('Loading...');
+            if (message) {
+                $('#divWaitMessage').html(message);
+            }
+            $('#divLoadingMsg').show();
+        }
+
+        function GetToday() {
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth() + 1; //January is 0!
+            var yyyy = today.getFullYear();
+            return mm + '/' + dd + '/' + yyyy;
+        }
+
+        function IsEmpty(value)
+        {
+            var isEmpty = false;
+            if (value == undefined)
+                isEmpty = true;
+            if (value == null)
+                isEmpty = true;
+            if (value == '')
+                isEmpty = true;
+            return isEmpty;
+        }
+
+    </script>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

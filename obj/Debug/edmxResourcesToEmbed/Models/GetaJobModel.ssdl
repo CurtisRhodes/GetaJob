@@ -1,0 +1,318 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="GetaJobModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Agency">
+    <Key>
+      <PropertyRef Name="AgencyId" />
+    </Key>
+    <Property Name="AgencyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="200" />
+    <Property Name="StreetAddress" Type="varchar" MaxLength="150" />
+    <Property Name="City" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="State" Type="char" MaxLength="2" />
+    <Property Name="Zip" Type="varchar" MaxLength="15" />
+    <Property Name="WorkPhone" Type="varchar" MaxLength="50" />
+    <Property Name="CellPhone" Type="varchar" MaxLength="50" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Agent">
+    <Key>
+      <PropertyRef Name="AgentId" />
+    </Key>
+    <Property Name="AgentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AgencyId" Type="int" />
+    <Property Name="AgentName" Type="varchar" MaxLength="350" />
+    <Property Name="WorkPhone" Type="varchar" MaxLength="50" />
+    <Property Name="CellPhone" Type="varchar" MaxLength="50" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="DropDownValues">
+    <Key>
+      <PropertyRef Name="RefCode" />
+    </Key>
+    <Property Name="RefType" Type="int" />
+    <Property Name="RefCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RefDescription" Type="varchar" MaxLength="250" Nullable="false" />
+  </EntityType>
+  <EntityType Name="GetaJob_User">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="FirstName" Type="varchar" MaxLength="50" />
+    <Property Name="LastName" Type="varchar" MaxLength="50" />
+    <Property Name="UserName" Type="varchar" MaxLength="50" />
+    <Property Name="Password" Type="varchar" MaxLength="500" />
+    <Property Name="CurrentJobSearchId" Type="int" />
+    <Property Name="dob" Type="date" />
+  </EntityType>
+  <EntityType Name="Job">
+    <Key>
+      <PropertyRef Name="JobId" />
+    </Key>
+    <Property Name="JobId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CompanyId" Type="int" Nullable="false" />
+    <Property Name="DateOfEmployment" Type="date" />
+    <Property Name="Terminated" Type="date" />
+    <Property Name="Explanation" Type="varchar(max)" />
+    <Property Name="JobTitle" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="JobListing">
+    <Key>
+      <PropertyRef Name="JobListingId" />
+    </Key>
+    <Property Name="JobListingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="JobSearchId" Type="int" />
+    <Property Name="PostedDate" Type="date" />
+    <Property Name="ListingStatus" Type="int" />
+    <Property Name="AgentId" Type="int" />
+    <Property Name="TargetCompanyId" Type="int" />
+    <Property Name="JobTitle" Type="varchar" MaxLength="250" />
+    <Property Name="Rate" Type="varchar" MaxLength="50" />
+    <Property Name="EmploymentType" Type="int" />
+    <Property Name="Comments" Type="text" />
+    <Property Name="Distance" Type="varchar" MaxLength="150" />
+    <Property Name="ListingSource" Type="int" />
+    <Property Name="Desirability" Type="int" />
+    <Property Name="Fit" Type="int" />
+  </EntityType>
+  <EntityType Name="JobListingRequirement">
+    <Key>
+      <PropertyRef Name="JobListingRequirementId" />
+    </Key>
+    <Property Name="JobListingRequirementId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="JobListingId" Type="int" />
+    <Property Name="JobSkillId" Type="int" />
+    <Property Name="DesiredId" Type="int" />
+  </EntityType>
+  <EntityType Name="JobSearch">
+    <Key>
+      <PropertyRef Name="JobSearchId" />
+    </Key>
+    <Property Name="JobSearchId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Start" Type="date" Nullable="false" />
+    <Property Name="Completed" Type="date" />
+    <Property Name="Description" Type="varchar" MaxLength="950" />
+    <Property Name="UserId" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="JobSearchActivity">
+    <Key>
+      <PropertyRef Name="JobSearchActivityId" />
+    </Key>
+    <Property Name="JobSearchActivityId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="JobListingId" Type="int" />
+    <Property Name="ActivityDate" Type="date" Nullable="false" />
+    <Property Name="ActivityStatus" Type="int" />
+    <Property Name="Comments" Type="varchar" MaxLength="600" />
+  </EntityType>
+  <EntityType Name="JobSkill">
+    <Key>
+      <PropertyRef Name="JobSkillId" />
+    </Key>
+    <Property Name="JobSkillId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="JoId" Type="int" Nullable="false" />
+    <Property Name="JobSkillTitle" Type="varchar" MaxLength="250" />
+    <Property Name="JobSkill" Type="varchar(max)" />
+    <Property Name="JobSkillType" Type="int" />
+  </EntityType>
+  <EntityType Name="TargetCompany">
+    <Key>
+      <PropertyRef Name="CompanyId" />
+    </Key>
+    <Property Name="CompanyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="200" />
+    <Property Name="StreetAddress" Type="varchar" MaxLength="150" />
+    <Property Name="City" Type="varchar" MaxLength="150" />
+    <Property Name="State" Type="char" MaxLength="2" />
+    <Property Name="Zip" Type="varchar" MaxLength="15" />
+  </EntityType>
+  <Association Name="FK__Agent__AgencyId__16D94F8E">
+    <End Role="Agency" Type="Self.Agency" Multiplicity="0..1" />
+    <End Role="Agent" Type="Self.Agent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Agency">
+        <PropertyRef Name="AgencyId" />
+      </Principal>
+      <Dependent Role="Agent">
+        <PropertyRef Name="AgencyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Job__CompanyId__58A712EB">
+    <End Role="TargetCompany" Type="Self.TargetCompany" Multiplicity="1" />
+    <End Role="Job" Type="Self.Job" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TargetCompany">
+        <PropertyRef Name="CompanyId" />
+      </Principal>
+      <Dependent Role="Job">
+        <PropertyRef Name="CompanyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Job__UserId__57B2EEB2">
+    <End Role="GetaJob_User" Type="Self.GetaJob_User" Multiplicity="1" />
+    <End Role="Job" Type="Self.Job" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GetaJob_User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Job">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__JobListin__Agent__5105F123">
+    <End Role="Agent" Type="Self.Agent" Multiplicity="0..1" />
+    <End Role="JobListing" Type="Self.JobListing" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Agent">
+        <PropertyRef Name="AgentId" />
+      </Principal>
+      <Dependent Role="JobListing">
+        <PropertyRef Name="AgentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__JobListin__JobLi__5E5FEC41">
+    <End Role="JobListing" Type="Self.JobListing" Multiplicity="0..1" />
+    <End Role="JobListingRequirement" Type="Self.JobListingRequirement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JobListing">
+        <PropertyRef Name="JobListingId" />
+      </Principal>
+      <Dependent Role="JobListingRequirement">
+        <PropertyRef Name="JobListingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__JobListin__JobSe__5011CCEA">
+    <End Role="JobSearch" Type="Self.JobSearch" Multiplicity="0..1" />
+    <End Role="JobListing" Type="Self.JobListing" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JobSearch">
+        <PropertyRef Name="JobSearchId" />
+      </Principal>
+      <Dependent Role="JobListing">
+        <PropertyRef Name="JobSearchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__JobListin__JobSk__5F54107A">
+    <End Role="JobSkill" Type="Self.JobSkill" Multiplicity="0..1" />
+    <End Role="JobListingRequirement" Type="Self.JobListingRequirement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JobSkill">
+        <PropertyRef Name="JobSkillId" />
+      </Principal>
+      <Dependent Role="JobListingRequirement">
+        <PropertyRef Name="JobSkillId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__JobListin__Targe__51FA155C">
+    <End Role="TargetCompany" Type="Self.TargetCompany" Multiplicity="0..1" />
+    <End Role="JobListing" Type="Self.JobListing" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TargetCompany">
+        <PropertyRef Name="CompanyId" />
+      </Principal>
+      <Dependent Role="JobListing">
+        <PropertyRef Name="TargetCompanyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__JobSearch__JobLi__54D68207">
+    <End Role="JobListing" Type="Self.JobListing" Multiplicity="0..1" />
+    <End Role="JobSearchActivity" Type="Self.JobSearchActivity" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JobListing">
+        <PropertyRef Name="JobListingId" />
+      </Principal>
+      <Dependent Role="JobSearchActivity">
+        <PropertyRef Name="JobListingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__JobSearch__UserI__102C51FF">
+    <End Role="GetaJob_User" Type="Self.GetaJob_User" Multiplicity="1" />
+    <End Role="JobSearch" Type="Self.JobSearch" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GetaJob_User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="JobSearch">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__JobSkill__JoId__5B837F96">
+    <End Role="Job" Type="Self.Job" Multiplicity="1" />
+    <End Role="JobSkill" Type="Self.JobSkill" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Job">
+        <PropertyRef Name="JobId" />
+      </Principal>
+      <Dependent Role="JobSkill">
+        <PropertyRef Name="JoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="GetaJobModelStoreContainer">
+    <EntitySet Name="Agency" EntityType="Self.Agency" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Agent" EntityType="Self.Agent" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DropDownValues" EntityType="Self.DropDownValues" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GetaJob_User" EntityType="Self.GetaJob_User" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Job" EntityType="Self.Job" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="JobListing" EntityType="Self.JobListing" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="JobListingRequirement" EntityType="Self.JobListingRequirement" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="JobSearch" EntityType="Self.JobSearch" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="JobSearchActivity" EntityType="Self.JobSearchActivity" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="JobSkill" EntityType="Self.JobSkill" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TargetCompany" EntityType="Self.TargetCompany" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Agent__AgencyId__16D94F8E" Association="Self.FK__Agent__AgencyId__16D94F8E">
+      <End Role="Agency" EntitySet="Agency" />
+      <End Role="Agent" EntitySet="Agent" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Job__CompanyId__58A712EB" Association="Self.FK__Job__CompanyId__58A712EB">
+      <End Role="TargetCompany" EntitySet="TargetCompany" />
+      <End Role="Job" EntitySet="Job" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Job__UserId__57B2EEB2" Association="Self.FK__Job__UserId__57B2EEB2">
+      <End Role="GetaJob_User" EntitySet="GetaJob_User" />
+      <End Role="Job" EntitySet="Job" />
+    </AssociationSet>
+    <AssociationSet Name="FK__JobListin__Agent__5105F123" Association="Self.FK__JobListin__Agent__5105F123">
+      <End Role="Agent" EntitySet="Agent" />
+      <End Role="JobListing" EntitySet="JobListing" />
+    </AssociationSet>
+    <AssociationSet Name="FK__JobListin__JobLi__5E5FEC41" Association="Self.FK__JobListin__JobLi__5E5FEC41">
+      <End Role="JobListing" EntitySet="JobListing" />
+      <End Role="JobListingRequirement" EntitySet="JobListingRequirement" />
+    </AssociationSet>
+    <AssociationSet Name="FK__JobListin__JobSe__5011CCEA" Association="Self.FK__JobListin__JobSe__5011CCEA">
+      <End Role="JobSearch" EntitySet="JobSearch" />
+      <End Role="JobListing" EntitySet="JobListing" />
+    </AssociationSet>
+    <AssociationSet Name="FK__JobListin__JobSk__5F54107A" Association="Self.FK__JobListin__JobSk__5F54107A">
+      <End Role="JobSkill" EntitySet="JobSkill" />
+      <End Role="JobListingRequirement" EntitySet="JobListingRequirement" />
+    </AssociationSet>
+    <AssociationSet Name="FK__JobListin__Targe__51FA155C" Association="Self.FK__JobListin__Targe__51FA155C">
+      <End Role="TargetCompany" EntitySet="TargetCompany" />
+      <End Role="JobListing" EntitySet="JobListing" />
+    </AssociationSet>
+    <AssociationSet Name="FK__JobSearch__JobLi__54D68207" Association="Self.FK__JobSearch__JobLi__54D68207">
+      <End Role="JobListing" EntitySet="JobListing" />
+      <End Role="JobSearchActivity" EntitySet="JobSearchActivity" />
+    </AssociationSet>
+    <AssociationSet Name="FK__JobSearch__UserI__102C51FF" Association="Self.FK__JobSearch__UserI__102C51FF">
+      <End Role="GetaJob_User" EntitySet="GetaJob_User" />
+      <End Role="JobSearch" EntitySet="JobSearch" />
+    </AssociationSet>
+    <AssociationSet Name="FK__JobSkill__JoId__5B837F96" Association="Self.FK__JobSkill__JoId__5B837F96">
+      <End Role="Job" EntitySet="Job" />
+      <End Role="JobSkill" EntitySet="JobSkill" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

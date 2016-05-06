@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+<html ng-app='MVCExample'>
+<head>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script>
+        var app = angular.module('MVCExample', []);
+
+        // controller
+        app.controller("MyFirstCtrl", function($scope) {
+
+            // model
+            var employees = ['Christopher Grant', 'Monica Grant', 'Christopher Grant', 'Jennifer Grant'];
+
+            $scope.ourEmployees = employees;
+        });
+    </script>
+</head>
+<body ng-controller='MyFirstCtrl'>
+    <!-- view -->
+    <h2>Number of employees: {{ourEmployees.length}}</h2>
+</body>
+</html>

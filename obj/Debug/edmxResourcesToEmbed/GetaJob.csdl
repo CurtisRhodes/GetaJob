@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="GetaJobModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Agency">
+    <Key>
+      <PropertyRef Name="CompanyId" />
+    </Key>
+    <Property Name="CompanyId" Type="Guid" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Company">
+    <Key>
+      <PropertyRef Name="CompanyId" />
+    </Key>
+    <Property Name="CompanyId" Type="Guid" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="StreetAddress" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="PostalCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="EntityDevice">
+    <Key>
+      <PropertyRef Name="EntityDeviceId" />
+    </Key>
+    <Property Name="EntityDeviceId" Type="Guid" Nullable="false" />
+    <Property Name="EntityId" Type="Guid" Nullable="false" />
+    <Property Name="DeviceType" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="Endpoint" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Headhunter">
+    <Key>
+      <PropertyRef Name="HeadhunterId" />
+    </Key>
+    <Property Name="HeadhunterId" Type="Guid" Nullable="false" />
+    <Property Name="AgencyId" Type="Guid" />
+    <Property Name="PersonId" Type="Guid" />
+  </EntityType>
+  <EntityType Name="Job">
+    <Key>
+      <PropertyRef Name="JobId" />
+    </Key>
+    <Property Name="JobId" Type="Guid" Nullable="false" />
+    <Property Name="PersonId" Type="Guid" Nullable="false" />
+    <Property Name="CompanyId" Type="Guid" Nullable="false" />
+    <Property Name="DateOfEmployment" Type="DateTime" Precision="0" />
+    <Property Name="Terminated" Type="DateTime" Precision="0" />
+    <Property Name="JobTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="JobListing">
+    <Key>
+      <PropertyRef Name="JobListingId" />
+    </Key>
+    <Property Name="JobListingId" Type="Guid" Nullable="false" />
+    <Property Name="JobSearchId" Type="Guid" />
+    <Property Name="PostedDate" Type="DateTime" Precision="0" />
+    <Property Name="ListingStatus" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+    <Property Name="AgentId" Type="Guid" />
+    <Property Name="TargetCompany" Type="Guid" />
+    <Property Name="JobTitle" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Rate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="EmploymentType" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+    <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Distance" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="ListingSource" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+    <Property Name="Desirability" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+    <Property Name="Fit" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+  </EntityType>
+  <EntityType Name="JobSearch">
+    <Key>
+      <PropertyRef Name="JobSearchId" />
+    </Key>
+    <Property Name="JobSearchId" Type="Guid" Nullable="false" />
+    <Property Name="Start" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Completed" Type="DateTime" Precision="0" />
+    <Property Name="Description" Type="String" MaxLength="950" FixedLength="false" Unicode="false" />
+    <Property Name="PersonId" Type="Guid" />
+  </EntityType>
+  <EntityType Name="JobSearchActivity">
+    <Key>
+      <PropertyRef Name="JobSearchActivityId" />
+    </Key>
+    <Property Name="JobSearchActivityId" Type="Guid" Nullable="false" />
+    <Property Name="JobListingId" Type="Guid" />
+    <Property Name="ActivityDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="ActivityType" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+    <Property Name="ActivityStatus" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+  </EntityType>
+  <EntityType Name="JobSkill">
+    <Key>
+      <PropertyRef Name="JobSkillId" />
+    </Key>
+    <Property Name="JobSkillId" Type="Guid" Nullable="false" />
+    <Property Name="JobOrListingId" Type="Guid" Nullable="false" />
+    <Property Name="SkillId" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+    <Property Name="RequiredId" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Person">
+    <Key>
+      <PropertyRef Name="PersonId" />
+    </Key>
+    <Property Name="PersonId" Type="Guid" Nullable="false" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="dob" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="PostalCode">
+    <Key>
+      <PropertyRef Name="Code" />
+    </Key>
+    <Property Name="Code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="City" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PostOffice" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="State" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Ref">
+    <Key>
+      <PropertyRef Name="RefId" />
+    </Key>
+    <Property Name="RefId" Type="Guid" Nullable="false" />
+    <Property Name="RefType" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="RefCode" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="RefDescription" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="GetaJobEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Agencies" EntityType="Self.Agency" />
+    <EntitySet Name="Companies" EntityType="Self.Company" />
+    <EntitySet Name="EntityDevices" EntityType="Self.EntityDevice" />
+    <EntitySet Name="Headhunters" EntityType="Self.Headhunter" />
+    <EntitySet Name="Jobs" EntityType="Self.Job" />
+    <EntitySet Name="JobListings" EntityType="Self.JobListing" />
+    <EntitySet Name="JobSearches" EntityType="Self.JobSearch" />
+    <EntitySet Name="JobSearchActivities" EntityType="Self.JobSearchActivity" />
+    <EntitySet Name="JobSkills" EntityType="Self.JobSkill" />
+    <EntitySet Name="People" EntityType="Self.Person" />
+    <EntitySet Name="PostalCodes" EntityType="Self.PostalCode" />
+    <EntitySet Name="Refs" EntityType="Self.Ref" />
+  </EntityContainer>
+</Schema>

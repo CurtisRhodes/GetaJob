@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="GetaJobModelStoreContainer" CdmEntityContainer="GetaJobEF">
+    <EntitySetMapping Name="Agencies">
+      <EntityTypeMapping TypeName="GetaJobModel.Agency">
+        <MappingFragment StoreEntitySet="Agency">
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="CellPhone" ColumnName="CellPhone" />
+          <ScalarProperty Name="WorkPhone" ColumnName="WorkPhone" />
+          <ScalarProperty Name="Zip" ColumnName="Zip" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="StreetAddress" ColumnName="StreetAddress" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="AgencyId" ColumnName="AgencyId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Agents">
+      <EntityTypeMapping TypeName="GetaJobModel.Agent">
+        <MappingFragment StoreEntitySet="Agent">
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="CellPhone" ColumnName="CellPhone" />
+          <ScalarProperty Name="WorkPhone" ColumnName="WorkPhone" />
+          <ScalarProperty Name="AgentName" ColumnName="AgentName" />
+          <ScalarProperty Name="AgencyId" ColumnName="AgencyId" />
+          <ScalarProperty Name="AgentId" ColumnName="AgentId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GetaJob_User">
+      <EntityTypeMapping TypeName="GetaJobModel.GetaJob_User">
+        <MappingFragment StoreEntitySet="GetaJob_User">
+          <ScalarProperty Name="dob" ColumnName="dob" />
+          <ScalarProperty Name="CurrentJobSearchId" ColumnName="CurrentJobSearchId" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Jobs">
+      <EntityTypeMapping TypeName="GetaJobModel.Job">
+        <MappingFragment StoreEntitySet="Job">
+          <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
+          <ScalarProperty Name="Explanation" ColumnName="Explanation" />
+          <ScalarProperty Name="Terminated" ColumnName="Terminated" />
+          <ScalarProperty Name="DateOfEmployment" ColumnName="DateOfEmployment" />
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="JobId" ColumnName="JobId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JobSearches">
+      <EntityTypeMapping TypeName="GetaJobModel.JobSearch">
+        <MappingFragment StoreEntitySet="JobSearch">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Completed" ColumnName="Completed" />
+          <ScalarProperty Name="Start" ColumnName="Start" />
+          <ScalarProperty Name="JobSearchId" ColumnName="JobSearchId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TargetCompanies">
+      <EntityTypeMapping TypeName="GetaJobModel.TargetCompany">
+        <MappingFragment StoreEntitySet="TargetCompany">
+          <ScalarProperty Name="Zip" ColumnName="Zip" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="StreetAddress" ColumnName="StreetAddress" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DropDownValues">
+      <EntityTypeMapping TypeName="GetaJobModel.DropDownValue">
+        <MappingFragment StoreEntitySet="DropDownValues">
+          <ScalarProperty Name="RefDescription" ColumnName="RefDescription" />
+          <ScalarProperty Name="RefCode" ColumnName="RefCode" />
+          <ScalarProperty Name="RefType" ColumnName="RefType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JobListings">
+      <EntityTypeMapping TypeName="GetaJobModel.JobListing">
+        <MappingFragment StoreEntitySet="JobListing">
+          <ScalarProperty Name="Fit" ColumnName="Fit" />
+          <ScalarProperty Name="Desirability" ColumnName="Desirability" />
+          <ScalarProperty Name="ListingSource" ColumnName="ListingSource" />
+          <ScalarProperty Name="Distance" ColumnName="Distance" />
+          <ScalarProperty Name="Comments" ColumnName="Comments" />
+          <ScalarProperty Name="EmploymentType" ColumnName="EmploymentType" />
+          <ScalarProperty Name="Rate" ColumnName="Rate" />
+          <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
+          <ScalarProperty Name="TargetCompanyId" ColumnName="TargetCompanyId" />
+          <ScalarProperty Name="AgentId" ColumnName="AgentId" />
+          <ScalarProperty Name="ListingStatus" ColumnName="ListingStatus" />
+          <ScalarProperty Name="PostedDate" ColumnName="PostedDate" />
+          <ScalarProperty Name="JobSearchId" ColumnName="JobSearchId" />
+          <ScalarProperty Name="JobListingId" ColumnName="JobListingId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JobListingRequirements">
+      <EntityTypeMapping TypeName="GetaJobModel.JobListingRequirement">
+        <MappingFragment StoreEntitySet="JobListingRequirement">
+          <ScalarProperty Name="DesiredId" ColumnName="DesiredId" />
+          <ScalarProperty Name="JobSkillId" ColumnName="JobSkillId" />
+          <ScalarProperty Name="JobListingId" ColumnName="JobListingId" />
+          <ScalarProperty Name="JobListingRequirementId" ColumnName="JobListingRequirementId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JobSearchActivities">
+      <EntityTypeMapping TypeName="GetaJobModel.JobSearchActivity">
+        <MappingFragment StoreEntitySet="JobSearchActivity">
+          <ScalarProperty Name="Comments" ColumnName="Comments" />
+          <ScalarProperty Name="ActivityStatus" ColumnName="ActivityStatus" />
+          <ScalarProperty Name="ActivityDate" ColumnName="ActivityDate" />
+          <ScalarProperty Name="JobListingId" ColumnName="JobListingId" />
+          <ScalarProperty Name="JobSearchActivityId" ColumnName="JobSearchActivityId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JobSkills">
+      <EntityTypeMapping TypeName="GetaJobModel.JobSkill">
+        <MappingFragment StoreEntitySet="JobSkill">
+          <ScalarProperty Name="JobSkillType" ColumnName="JobSkillType" />
+          <ScalarProperty Name="JobSkill1" ColumnName="JobSkill" />
+          <ScalarProperty Name="JobSkillTitle" ColumnName="JobSkillTitle" />
+          <ScalarProperty Name="JoId" ColumnName="JoId" />
+          <ScalarProperty Name="JobSkillId" ColumnName="JobSkillId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

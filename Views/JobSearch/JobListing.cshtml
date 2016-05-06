@@ -1,0 +1,251 @@
+﻿@model GetaJob.Models.JobListingModel
+
+@{   
+    ViewBag.Title = "JobListing";
+}
+<script src="~/Scripts/jobListingCtrl.js"></script>
+<h3>Job Listings</h3>
+<hr />
+<div ng-app="MyApp" ng-controller="jobListingCtrl" ng-init="init()">
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-md-2">Listing Title</label>
+            <div class="col-md-10">
+                <input class="form-control" ng-disabled="disabled" ng-model="selectedJobListing.Comments" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Posted</label>
+            <div class="col-md-4">
+                <input type="text" class="form-control" ng-disabled="disabled" ng-model="selectedJobListing.PostedDate" ng-required="true">
+            </div>
+            <label class="control-label col-md-2">Listing Status</label>
+            <div class="col-md-4">
+                <select class="form-control" ng-model="selectedJobListing.ListingStatus" 
+                        ng-options="ref.RefCode as ref.RefDescription for ref in ListingStatuses" ng-disabled="disabled"></select>
+                
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Agent</label>
+            <div class="col-md-4">
+                <input type="text" class="form-control" ng-disabled="disabled" ng-model="selectedJobListing.AgentName" ng-required="true">
+            </div>
+            <label class="control-label col-md-2">Target Company</label>
+            <div class="col-md-4">
+                <input type="text" class="form-control" ng-disabled="disabled" ng-model="selectedJobListing.TargetCompanyName" ng-required="true">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Agency</label>
+            <div class="col-md-4">
+                <input type="text" class="form-control" ng-disabled="disabled" ng-model="selectedJobListing.AgencyName">
+            </div>
+            <label class="control-label col-md-2">Job Title</label>
+            <div class="col-md-4">
+                <input type="text" class="form-control" ng-disabled="disabled" ng-model="selectedJobListing.JobTitle">
+            </div>
+        </div>
+        <div>
+            <div class="chrTabList">
+                <div ng-click="ShowJobDetails()">Job Details</div>
+                <div ng-click="ShowActivityLog()">Activity Log</div>
+                <div ng-click="ShowAgent()">Agent Details</div>
+                <div ng-click="ShowAgency()">Agecny Details</div>
+                <div ng-click="ShowTarget()">Target Company Details</div>
+            </div>
+        </div>
+        <div class="chrTabArea" ng-show="showDetails">
+            <div class="form-group">
+                <label class="control-label col-md-2">Employment Type</label>
+                <div class="col-md-4">
+                    <select class="form-control" ng-model="selectedJobListing.EmploymentType" 
+                            ng-options="ref.RefCode as ref.RefDescription for ref in EmploymentTypes" ng-disabled="disabled"></select>
+                </div>
+                <label class="control-label col-md-2">Rate</label>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" ng-disabled="disabled" ng-model="selectedJobListing.Rate">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">Listing Source</label>
+                <div class="col-md-4">
+                    <select class="form-control" ng-model="selectedJobListing.ListingSource" 
+                            ng-options="ref.RefCode as ref.RefDescription for ref in ListingSources" ng-disabled="disabled"></select>
+                </div>
+                <label class="control-label col-md-2">Desirability</label>
+                <div class="col-md-4">
+                    <select class ="form-control" ng-model="selectedJobListing.Desirability" 
+                            ng-options="ref.RefCode as ref.RefDescription for ref in Desirabilities" ng-disabled="disabled"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">Fit</label>
+                <div class="col-md-4">
+                    <select class="form-control" ng-model="selectedJobListing.Fit" 
+                            ng-options="ref.RefCode as ref.RefDescription for ref in Fits" ng-disabled="disabled"></select>
+                </div>
+                <label class="control-label col-md-2">Distance</label>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" ng-disabled="disabled" ng-model="selectedJobListing.Distance">
+                </div>
+            </div>
+        </div>
+        <div class="chrTabArea" ng-show="showAgentDetails">
+            <div class="form-group">
+                <label class="control-label col-md-2">Agent Name</label>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" ng-disabled="disabled" ng-model="selectedJobListing.AgentName">
+                </div>
+                <label class="control-label col-md-2">Work Phone</label>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" ng-disabled="disabled" ng-model="selectedJobListing.AgentWorkPhone">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">Email</label>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" ng-disabled="disabled" ng-model="selectedJobListing.AgentEmail">
+                </div>
+                <label class="control-label col-md-2">Cell Phone</label>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" ng-disabled="disabled" ng-model="selectedJobListing.AgentCellPhone">
+                </div>
+            </div>
+        </div>
+        <div class="chrTabArea" ng-show="showAgencyDetails">
+            <div class="form-group">
+                <label class="control-label col-md-2">Agency Name</label>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" ng-disabled="disabled" ng-model="selectedJobListing.AgencyName">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">Email</label>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" ng-disabled="disabled" ng-model="selectedJobListing.AgencyEmail">
+                </div>
+                <label class="control-label col-md-2">Phone</label>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" ng-disabled="disabled" ng-model="selectedJobListing.AgencyWorkPhone">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">Address</label>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" ng-disabled="disabled" ng-model="selectedJobListing.AgencyStreetAddress">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-1">City</label>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" ng-disabled="disabled" ng-model="selectedJobListing.AgencyCity">
+                </div>
+                <label class="control-label col-md-1">State</label>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" ng-disabled="disabled" ng-model="selectedJobListing.AgencyState">
+                </div>
+                <label class="control-label col-md-1">Zip</label>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" ng-disabled="disabled" ng-model="selectedJobListing.AgencyZip">
+                </div>
+            </div>
+        </div>
+        <div class="chrTabArea" ng-show="showCompanyDetails">
+            <div class="form-group">
+                <label class="control-label col-md-2">Company Name</label>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" ng-disabled="disabled" ng-model="selectedJobListing.TargetCompanyName">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">Address</label>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" ng-disabled="disabled" ng-model="selectedJobListing.TargetCompanyAddress">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-1">City</label>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" ng-disabled="disabled" ng-model="selectedJobListing.TargetCompanyCity">
+                </div>
+                <label class="control-label col-md-1">State</label>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" ng-disabled="disabled" ng-model="selectedJobListing.TargetCompanyState">
+                </div>
+                <label class="control-label col-md-1">Zip</label>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" ng-disabled="disabled" ng-model="selectedJobListing.TargetCompanyZip">
+                </div>
+            </div>
+        </div>
+        <div class="chrTabArea" ng-show="showActivities">
+            <div class="form-group">
+                <label class="control-label col-md-1">Date</label>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" ng-disabled="ActivityDisabled" ng-model="selectedActivity.ActivityDate">
+                </div>
+                <label class="control-label col-md-1">Status</label>
+                <div class="col-md-3">
+                    <select class="form-control" ng-model="selectedActivity.ActivityStatus" ng-options="ref as ref.RefDescription for ref in activityTypes" ng-disabled="ActivityDisabled"></select>
+                </div>
+                <label class="control-label col-md-1">Comments</label>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" ng-disabled="ActivityDisabled" ng-model="selectedActivity.Comments">
+                </div>
+            </div>
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="{{ActivityAddSaveLabel}}" class="btn btn-default" ng-click="ActivityAddSave()" />
+                <input type="submit" value="{{ActivityEditCancelLabel}}" class="btn btn-default" ng-click="ActivityEditCancel()" />
+            </div>
+            <table class="table table-bordered table-hover table-overflow-100">
+                <tr>
+                    <th>Posted</th>
+                    <th>Status</th>
+                    <th>Comments</th>
+                </tr>
+                <tr ng-repeat="activity in jobSearchActivities" ng-click="LoadActivityDetail(activity)">
+                    <td>{{activity.ActivityDate}}</td>
+                    <td>{{activity.ActivityStatus}}</td>
+                    <td>{{activity.Comments}}</td>
+                </tr>
+            </table>
+        </div>          
+        <div class="form-group">
+            <div class="col-md-offset-10 col-md-2">
+                <input type="submit" value="{{AddSaveLabel}}" class="btn btn-default" ng-click="AddSave()" />
+                <input type="submit" value="{{EditCancelLabel}}" class="btn btn-default" ng-click="EditCancel()" />
+            </div>
+        </div>
+    </div>
+  
+    <h2>{{Stupid}}</h2>
+
+    <div class="table-overflow-100">
+        <div class="chrOverflow">
+            <table class="table table-bordered table-hover">
+                <tr>
+                    <th>Posted</th>
+                    <th>Status</th>
+                    <th>Title</th>
+                    <th>Type</th>
+                    <th>Rate</th>
+                    <th>Target Company</th>
+                </tr>
+                <tr ng-repeat="jobListing in jobListings" ng-click="LoadDetail(jobListing)">
+                    <td>{{jobListing.PostedDate}}</td>
+                    <td>{{jobListing.ListingStatus}}</td>
+                    <td>{{jobListing.Comments}}</td>
+                    <td>{{jobListing.EmploymentType}}</td>
+                    <td>{{jobListing.Rate}}</td>
+                    <td>{{jobListing.TargetCompanyName}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div>
+        @Html.ActionLink("Done", "Index", "Home")
+    </div>
+</div>

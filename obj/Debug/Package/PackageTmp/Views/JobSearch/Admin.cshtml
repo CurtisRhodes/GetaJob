@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "Admin";
+}
+
+<script src="~/Scripts/adminCtrl.js"></script>
+<h3>Admin</h3>
+<hr />
+<div ng-app="MyApp" ng-controller="adminCtrl" ng-init="init()">
+
+    <div class="leftNavArea"></div>
+    <div class="rightWorkArea">
+
+        <div class="refEdit">
+
+            <div>
+                <select class="form-control" ng-change="refTypeSelect()" ng-disabled="DisplayMode" ng-model="selectedRefType"
+                  ng-options="ref as ref.RefDescription for ref in refTypes"></select>
+             </div>
+
+            <div class="refEditListArea" ng-disabled="DisplayMode">
+                <table class="table table-bordered table-hover">
+                    <tr ng-repeat="ref in SelectedRefs" ng-click="LoadEdit(ref)">
+                        <td>{{ref.RefDescription}}</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div>
+                <input type="text" class="form-control" ng-model="SelectedRef.RefDescription" ng-disabled="EditMode">
+            </div>
+            <div class="refEditButtonDiv" >
+                <input type="submit" value="{{AddSaveLabel}}" class="btn btn-default" ng-click="AddSave()" />
+                <input type="submit" value="{{EditCancelLabel}}" class="btn btn-default" ng-click="EditCancel()" />
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+

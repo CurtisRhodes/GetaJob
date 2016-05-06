@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="IIS Web Application Name" description="" value="GetaJob" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\Devl\\Grahamson\\GetaJob\\obj\\Release\\Package\\PackageTmp$" />
+    <parameterEntry kind="ProviderPath" scope="setAcl" match="^C:\\Devl\\Grahamson\\GetaJob\\obj\\Release\\Package\\PackageTmp$" />
+  </parameter>
+  <parameter name="DefaultConnection-Web.config Connection String" description="" value="Data Source=OFFICE-PC\SQL2014;Initial Catalog=GetaJob;Integrated Security=True" tags="">
+    <parameterEntry kind="XmlFile" scope="C:\\Devl\\Grahamson\\GetaJob\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
+  </parameter>
+  <parameter name="GetaJob-Web.config Connection String" description="" value="data source=OFFICE-PC\SQL2014;initial catalog=GetaJob;integrated security=True;multipleactiveresultsets=True;application name=EntityFramework" tags="">
+    <parameterEntry kind="XmlFile" scope="C:\\Devl\\Grahamson\\GetaJob\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='GetaJob']/@connectionString" />
+  </parameter>
+  <parameter name="GetaJobEF-Web.config Connection String" description="" value="metadata=res://*/Models.GetaJobModel.csdl|res://*/Models.GetaJobModel.ssdl|res://*/Models.GetaJobModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=OFFICE-PC\SQL2014;initial catalog=GetaJob;integrated security=True;multipleactiveresultsets=True;application name=EntityFramework&quot;" tags="">
+    <parameterEntry kind="XmlFile" scope="C:\\Devl\\Grahamson\\GetaJob\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='GetaJobEF']/@connectionString" />
+  </parameter>
+</parameters>

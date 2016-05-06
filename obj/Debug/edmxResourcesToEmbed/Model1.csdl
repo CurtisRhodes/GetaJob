@@ -1,0 +1,333 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="GetaJobModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Agency">
+    <Key>
+      <PropertyRef Name="CompanyId" />
+    </Key>
+    <Property Name="CompanyId" Type="Guid" Nullable="false" />
+    <NavigationProperty Name="Company" Relationship="Self.FK__Agency__CompanyI__05D8E0BE" FromRole="Agency" ToRole="Company" />
+    <NavigationProperty Name="Headhunters" Relationship="Self.FK__Headhunte__Agenc__09A971A2" FromRole="Agency" ToRole="Headhunter" />
+  </EntityType>
+  <EntityType Name="Company">
+    <Key>
+      <PropertyRef Name="CompanyId" />
+    </Key>
+    <Property Name="CompanyId" Type="Guid" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="StreetAddress" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="PostalCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Agency" Relationship="Self.FK__Agency__CompanyI__05D8E0BE" FromRole="Company" ToRole="Agency" />
+    <NavigationProperty Name="PostalCode1" Relationship="Self.FK__Company__PostalC__02FC7413" FromRole="Company" ToRole="PostalCode" />
+    <NavigationProperty Name="Jobs" Relationship="Self.FK__Job__CompanyId__30C33EC3" FromRole="Company" ToRole="Job" />
+    <NavigationProperty Name="JobListings" Relationship="Self.FK__JobListin__Targe__19DFD96B" FromRole="Company" ToRole="JobListing" />
+  </EntityType>
+  <EntityType Name="EntityDevice">
+    <Key>
+      <PropertyRef Name="EntityDeviceId" />
+    </Key>
+    <Property Name="EntityDeviceId" Type="Guid" Nullable="false" />
+    <Property Name="EntityId" Type="Guid" Nullable="false" />
+    <Property Name="DeviceType" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="Endpoint" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Headhunter">
+    <Key>
+      <PropertyRef Name="HeadhunterId" />
+    </Key>
+    <Property Name="HeadhunterId" Type="Guid" Nullable="false" />
+    <Property Name="AgencyId" Type="Guid" />
+    <Property Name="PersonId" Type="Guid" />
+    <NavigationProperty Name="Agency" Relationship="Self.FK__Headhunte__Agenc__09A971A2" FromRole="Headhunter" ToRole="Agency" />
+    <NavigationProperty Name="Person" Relationship="Self.FK__Headhunte__Perso__0A9D95DB" FromRole="Headhunter" ToRole="Person" />
+    <NavigationProperty Name="JobListings" Relationship="Self.FK__JobListin__Agent__18EBB532" FromRole="Headhunter" ToRole="JobListing" />
+  </EntityType>
+  <EntityType Name="Job">
+    <Key>
+      <PropertyRef Name="JobId" />
+    </Key>
+    <Property Name="JobId" Type="Guid" Nullable="false" />
+    <Property Name="PersonId" Type="Guid" Nullable="false" />
+    <Property Name="CompanyId" Type="Guid" Nullable="false" />
+    <Property Name="DateOfEmployment" Type="DateTime" Precision="0" />
+    <Property Name="Terminated" Type="DateTime" Precision="0" />
+    <Property Name="JobTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Company" Relationship="Self.FK__Job__CompanyId__30C33EC3" FromRole="Job" ToRole="Company" />
+    <NavigationProperty Name="Person" Relationship="Self.FK__Job__PersonId__2FCF1A8A" FromRole="Job" ToRole="Person" />
+  </EntityType>
+  <EntityType Name="JobListing">
+    <Key>
+      <PropertyRef Name="JobListingId" />
+    </Key>
+    <Property Name="JobListingId" Type="Guid" Nullable="false" />
+    <Property Name="JobSearchId" Type="Guid" />
+    <Property Name="PostedDate" Type="DateTime" Precision="0" />
+    <Property Name="ListingStatus" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+    <Property Name="AgentId" Type="Guid" />
+    <Property Name="TargetCompany" Type="Guid" />
+    <Property Name="JobTitle" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Rate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="EmploymentType" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+    <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Distance" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="ListingSource" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+    <Property Name="Desirability" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+    <Property Name="Fit" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+    <NavigationProperty Name="Company" Relationship="Self.FK__JobListin__Targe__19DFD96B" FromRole="JobListing" ToRole="Company" />
+    <NavigationProperty Name="Headhunter" Relationship="Self.FK__JobListin__Agent__18EBB532" FromRole="JobListing" ToRole="Headhunter" />
+    <NavigationProperty Name="JobSearch" Relationship="Self.FK__JobListin__JobSe__17036CC0" FromRole="JobListing" ToRole="JobSearch" />
+    <NavigationProperty Name="JobSearchActivities" Relationship="Self.FK__JobSearch__JobLi__2645B050" FromRole="JobListing" ToRole="JobSearchActivity" />
+  </EntityType>
+  <EntityType Name="JobSearch">
+    <Key>
+      <PropertyRef Name="JobSearchId" />
+    </Key>
+    <Property Name="JobSearchId" Type="Guid" Nullable="false" />
+    <Property Name="Start" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Completed" Type="DateTime" Precision="0" />
+    <Property Name="Description" Type="String" MaxLength="950" FixedLength="false" Unicode="false" />
+    <Property Name="PersonId" Type="Guid" />
+    <NavigationProperty Name="JobListings" Relationship="Self.FK__JobListin__JobSe__17036CC0" FromRole="JobSearch" ToRole="JobListing" />
+    <NavigationProperty Name="Person" Relationship="Self.FK__JobSearch__Perso__1332DBDC" FromRole="JobSearch" ToRole="Person" />
+  </EntityType>
+  <EntityType Name="JobSearchActivity">
+    <Key>
+      <PropertyRef Name="JobSearchActivityId" />
+    </Key>
+    <Property Name="JobSearchActivityId" Type="Guid" Nullable="false" />
+    <Property Name="JobListingId" Type="Guid" />
+    <Property Name="ActivityDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="ActivityType" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+    <Property Name="ActivityStatus" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+    <NavigationProperty Name="JobListing" Relationship="Self.FK__JobSearch__JobLi__2645B050" FromRole="JobSearchActivity" ToRole="JobListing" />
+  </EntityType>
+  <EntityType Name="JobSkill">
+    <Key>
+      <PropertyRef Name="JobSkillId" />
+    </Key>
+    <Property Name="JobSkillId" Type="Guid" Nullable="false" />
+    <Property Name="JobOrListingId" Type="Guid" Nullable="false" />
+    <Property Name="SkillId" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+    <Property Name="RequiredId" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Person">
+    <Key>
+      <PropertyRef Name="PersonId" />
+    </Key>
+    <Property Name="PersonId" Type="Guid" Nullable="false" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="dob" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Headhunters" Relationship="Self.FK__Headhunte__Perso__0A9D95DB" FromRole="Person" ToRole="Headhunter" />
+    <NavigationProperty Name="Jobs" Relationship="Self.FK__Job__PersonId__2FCF1A8A" FromRole="Person" ToRole="Job" />
+    <NavigationProperty Name="JobSearches" Relationship="Self.FK__JobSearch__Perso__1332DBDC" FromRole="Person" ToRole="JobSearch" />
+  </EntityType>
+  <EntityType Name="PostalCode">
+    <Key>
+      <PropertyRef Name="Code" />
+    </Key>
+    <Property Name="Code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="City" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PostOffice" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="State" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+    <NavigationProperty Name="Companies" Relationship="Self.FK__Company__PostalC__02FC7413" FromRole="PostalCode" ToRole="Company" />
+  </EntityType>
+  <EntityType Name="Ref">
+    <Key>
+      <PropertyRef Name="RefId" />
+    </Key>
+    <Property Name="RefId" Type="Guid" Nullable="false" />
+    <Property Name="RefType" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="RefCode" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="RefDescription" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__Agency__CompanyI__05D8E0BE">
+    <End Role="Company" Type="Self.Company" Multiplicity="1" />
+    <End Role="Agency" Type="Self.Agency" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Company">
+        <PropertyRef Name="CompanyId" />
+      </Principal>
+      <Dependent Role="Agency">
+        <PropertyRef Name="CompanyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Headhunte__Agenc__09A971A2">
+    <End Role="Agency" Type="Self.Agency" Multiplicity="0..1" />
+    <End Role="Headhunter" Type="Self.Headhunter" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Agency">
+        <PropertyRef Name="CompanyId" />
+      </Principal>
+      <Dependent Role="Headhunter">
+        <PropertyRef Name="AgencyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Company__PostalC__02FC7413">
+    <End Role="PostalCode" Type="Self.PostalCode" Multiplicity="0..1" />
+    <End Role="Company" Type="Self.Company" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PostalCode">
+        <PropertyRef Name="Code" />
+      </Principal>
+      <Dependent Role="Company">
+        <PropertyRef Name="PostalCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Job__CompanyId__30C33EC3">
+    <End Role="Company" Type="Self.Company" Multiplicity="1" />
+    <End Role="Job" Type="Self.Job" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Company">
+        <PropertyRef Name="CompanyId" />
+      </Principal>
+      <Dependent Role="Job">
+        <PropertyRef Name="CompanyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__JobListin__Targe__19DFD96B">
+    <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
+    <End Role="JobListing" Type="Self.JobListing" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Company">
+        <PropertyRef Name="CompanyId" />
+      </Principal>
+      <Dependent Role="JobListing">
+        <PropertyRef Name="TargetCompany" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Headhunte__Perso__0A9D95DB">
+    <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+    <End Role="Headhunter" Type="Self.Headhunter" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="PersonId" />
+      </Principal>
+      <Dependent Role="Headhunter">
+        <PropertyRef Name="PersonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__JobListin__Agent__18EBB532">
+    <End Role="Headhunter" Type="Self.Headhunter" Multiplicity="0..1" />
+    <End Role="JobListing" Type="Self.JobListing" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Headhunter">
+        <PropertyRef Name="HeadhunterId" />
+      </Principal>
+      <Dependent Role="JobListing">
+        <PropertyRef Name="AgentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Job__PersonId__2FCF1A8A">
+    <End Role="Person" Type="Self.Person" Multiplicity="1" />
+    <End Role="Job" Type="Self.Job" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="PersonId" />
+      </Principal>
+      <Dependent Role="Job">
+        <PropertyRef Name="PersonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__JobListin__JobSe__17036CC0">
+    <End Role="JobSearch" Type="Self.JobSearch" Multiplicity="0..1" />
+    <End Role="JobListing" Type="Self.JobListing" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JobSearch">
+        <PropertyRef Name="JobSearchId" />
+      </Principal>
+      <Dependent Role="JobListing">
+        <PropertyRef Name="JobSearchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__JobSearch__JobLi__2645B050">
+    <End Role="JobListing" Type="Self.JobListing" Multiplicity="0..1" />
+    <End Role="JobSearchActivity" Type="Self.JobSearchActivity" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JobListing">
+        <PropertyRef Name="JobListingId" />
+      </Principal>
+      <Dependent Role="JobSearchActivity">
+        <PropertyRef Name="JobListingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__JobSearch__Perso__1332DBDC">
+    <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+    <End Role="JobSearch" Type="Self.JobSearch" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="PersonId" />
+      </Principal>
+      <Dependent Role="JobSearch">
+        <PropertyRef Name="PersonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="GetaJobEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Agencies" EntityType="Self.Agency" />
+    <EntitySet Name="Companies" EntityType="Self.Company" />
+    <EntitySet Name="EntityDevices" EntityType="Self.EntityDevice" />
+    <EntitySet Name="Headhunters" EntityType="Self.Headhunter" />
+    <EntitySet Name="Jobs" EntityType="Self.Job" />
+    <EntitySet Name="JobListings" EntityType="Self.JobListing" />
+    <EntitySet Name="JobSearches" EntityType="Self.JobSearch" />
+    <EntitySet Name="JobSearchActivities" EntityType="Self.JobSearchActivity" />
+    <EntitySet Name="JobSkills" EntityType="Self.JobSkill" />
+    <EntitySet Name="People" EntityType="Self.Person" />
+    <EntitySet Name="PostalCodes" EntityType="Self.PostalCode" />
+    <EntitySet Name="Refs" EntityType="Self.Ref" />
+    <AssociationSet Name="FK__Agency__CompanyI__05D8E0BE" Association="Self.FK__Agency__CompanyI__05D8E0BE">
+      <End Role="Company" EntitySet="Companies" />
+      <End Role="Agency" EntitySet="Agencies" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Headhunte__Agenc__09A971A2" Association="Self.FK__Headhunte__Agenc__09A971A2">
+      <End Role="Agency" EntitySet="Agencies" />
+      <End Role="Headhunter" EntitySet="Headhunters" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Company__PostalC__02FC7413" Association="Self.FK__Company__PostalC__02FC7413">
+      <End Role="PostalCode" EntitySet="PostalCodes" />
+      <End Role="Company" EntitySet="Companies" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Job__CompanyId__30C33EC3" Association="Self.FK__Job__CompanyId__30C33EC3">
+      <End Role="Company" EntitySet="Companies" />
+      <End Role="Job" EntitySet="Jobs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__JobListin__Targe__19DFD96B" Association="Self.FK__JobListin__Targe__19DFD96B">
+      <End Role="Company" EntitySet="Companies" />
+      <End Role="JobListing" EntitySet="JobListings" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Headhunte__Perso__0A9D95DB" Association="Self.FK__Headhunte__Perso__0A9D95DB">
+      <End Role="Person" EntitySet="People" />
+      <End Role="Headhunter" EntitySet="Headhunters" />
+    </AssociationSet>
+    <AssociationSet Name="FK__JobListin__Agent__18EBB532" Association="Self.FK__JobListin__Agent__18EBB532">
+      <End Role="Headhunter" EntitySet="Headhunters" />
+      <End Role="JobListing" EntitySet="JobListings" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Job__PersonId__2FCF1A8A" Association="Self.FK__Job__PersonId__2FCF1A8A">
+      <End Role="Person" EntitySet="People" />
+      <End Role="Job" EntitySet="Jobs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__JobListin__JobSe__17036CC0" Association="Self.FK__JobListin__JobSe__17036CC0">
+      <End Role="JobSearch" EntitySet="JobSearches" />
+      <End Role="JobListing" EntitySet="JobListings" />
+    </AssociationSet>
+    <AssociationSet Name="FK__JobSearch__JobLi__2645B050" Association="Self.FK__JobSearch__JobLi__2645B050">
+      <End Role="JobListing" EntitySet="JobListings" />
+      <End Role="JobSearchActivity" EntitySet="JobSearchActivities" />
+    </AssociationSet>
+    <AssociationSet Name="FK__JobSearch__Perso__1332DBDC" Association="Self.FK__JobSearch__Perso__1332DBDC">
+      <End Role="Person" EntitySet="People" />
+      <End Role="JobSearch" EntitySet="JobSearches" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

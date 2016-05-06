@@ -1,0 +1,341 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="GetaJobModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Agency">
+    <Key>
+      <PropertyRef Name="CompanyId" />
+    </Key>
+    <Property Name="CompanyId" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Company">
+    <Key>
+      <PropertyRef Name="CompanyId" />
+    </Key>
+    <Property Name="CompanyId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="200" />
+    <Property Name="StreetAddress" Type="varchar" MaxLength="150" />
+    <Property Name="PostalCode" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="EntityDevice">
+    <Key>
+      <PropertyRef Name="EntityDeviceId" />
+    </Key>
+    <Property Name="EntityDeviceId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="EntityId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="DeviceType" Type="char" MaxLength="3" Nullable="false" />
+    <Property Name="Endpoint" Type="varchar" MaxLength="150" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Headhunter">
+    <Key>
+      <PropertyRef Name="HeadhunterId" />
+    </Key>
+    <Property Name="HeadhunterId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="AgencyId" Type="uniqueidentifier" />
+    <Property Name="PersonId" Type="uniqueidentifier" />
+  </EntityType>
+  <EntityType Name="Job">
+    <Key>
+      <PropertyRef Name="JobId" />
+    </Key>
+    <Property Name="JobId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="CompanyId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="DateOfEmployment" Type="date" />
+    <Property Name="Terminated" Type="date" />
+    <Property Name="JobTitle" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="JobListing">
+    <Key>
+      <PropertyRef Name="JobListingId" />
+    </Key>
+    <Property Name="JobListingId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="JobSearchId" Type="uniqueidentifier" />
+    <Property Name="PostedDate" Type="date" />
+    <Property Name="ListingStatus" Type="char" MaxLength="3" />
+    <Property Name="AgentId" Type="uniqueidentifier" />
+    <Property Name="TargetCompany" Type="uniqueidentifier" />
+    <Property Name="JobTitle" Type="varchar" MaxLength="250" />
+    <Property Name="Rate" Type="varchar" MaxLength="50" />
+    <Property Name="EmploymentType" Type="char" MaxLength="3" />
+    <Property Name="Comments" Type="text" />
+    <Property Name="Distance" Type="varchar" MaxLength="150" />
+    <Property Name="ListingSource" Type="char" MaxLength="3" />
+    <Property Name="Desirability" Type="char" MaxLength="3" />
+    <Property Name="Fit" Type="char" MaxLength="3" />
+  </EntityType>
+  <EntityType Name="JobSearch">
+    <Key>
+      <PropertyRef Name="JobSearchId" />
+    </Key>
+    <Property Name="JobSearchId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Start" Type="date" Nullable="false" />
+    <Property Name="Completed" Type="date" />
+    <Property Name="Description" Type="varchar" MaxLength="950" />
+    <Property Name="PersonId" Type="uniqueidentifier" />
+  </EntityType>
+  <EntityType Name="JobSearchActivity">
+    <Key>
+      <PropertyRef Name="JobSearchActivityId" />
+    </Key>
+    <Property Name="JobSearchActivityId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="JobListingId" Type="uniqueidentifier" />
+    <Property Name="ActivityDate" Type="date" Nullable="false" />
+    <Property Name="ActivityType" Type="char" MaxLength="3" />
+    <Property Name="ActivityStatus" Type="char" MaxLength="3" />
+  </EntityType>
+  <EntityType Name="JobSkill">
+    <Key>
+      <PropertyRef Name="JobSkillId" />
+    </Key>
+    <Property Name="JobSkillId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="JobOrListingId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="SkillId" Type="char" MaxLength="3" />
+    <Property Name="RequiredId" Type="char" MaxLength="3" />
+  </EntityType>
+  <EntityType Name="Person">
+    <Key>
+      <PropertyRef Name="PersonId" />
+    </Key>
+    <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="FirstName" Type="varchar" MaxLength="50" />
+    <Property Name="LastName" Type="varchar" MaxLength="50" />
+    <Property Name="dob" Type="date" />
+  </EntityType>
+  <EntityType Name="PostalCode">
+    <Key>
+      <PropertyRef Name="Code" />
+    </Key>
+    <Property Name="Code" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="City" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="PostOffice" Type="varchar" MaxLength="150" />
+    <Property Name="State" Type="char" MaxLength="2" />
+  </EntityType>
+  <EntityType Name="Ref">
+    <Key>
+      <PropertyRef Name="RefId" />
+    </Key>
+    <Property Name="RefId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="RefType" Type="char" MaxLength="3" Nullable="false" />
+    <Property Name="RefCode" Type="char" MaxLength="3" Nullable="false" />
+    <Property Name="RefDescription" Type="varchar" MaxLength="250" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__Agency__CompanyI__05D8E0BE">
+    <End Role="Company" Type="Self.Company" Multiplicity="1" />
+    <End Role="Agency" Type="Self.Agency" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Company">
+        <PropertyRef Name="CompanyId" />
+      </Principal>
+      <Dependent Role="Agency">
+        <PropertyRef Name="CompanyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Company__PostalC__02FC7413">
+    <End Role="PostalCode" Type="Self.PostalCode" Multiplicity="0..1" />
+    <End Role="Company" Type="Self.Company" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PostalCode">
+        <PropertyRef Name="Code" />
+      </Principal>
+      <Dependent Role="Company">
+        <PropertyRef Name="PostalCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <!--Errors Found During Generation:
+warning 6035: The relationship 'FK__EntityDev__Devic__2BFE89A6' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK__EntityDev__Devic__2BFE89A6" />-->
+  <Association Name="FK__Headhunte__Agenc__09A971A2">
+    <End Role="Agency" Type="Self.Agency" Multiplicity="0..1" />
+    <End Role="Headhunter" Type="Self.Headhunter" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Agency">
+        <PropertyRef Name="CompanyId" />
+      </Principal>
+      <Dependent Role="Headhunter">
+        <PropertyRef Name="AgencyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Headhunte__Perso__0A9D95DB">
+    <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+    <End Role="Headhunter" Type="Self.Headhunter" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="PersonId" />
+      </Principal>
+      <Dependent Role="Headhunter">
+        <PropertyRef Name="PersonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Job__CompanyId__30C33EC3">
+    <End Role="Company" Type="Self.Company" Multiplicity="1" />
+    <End Role="Job" Type="Self.Job" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Company">
+        <PropertyRef Name="CompanyId" />
+      </Principal>
+      <Dependent Role="Job">
+        <PropertyRef Name="CompanyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Job__PersonId__2FCF1A8A">
+    <End Role="Person" Type="Self.Person" Multiplicity="1" />
+    <End Role="Job" Type="Self.Job" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="PersonId" />
+      </Principal>
+      <Dependent Role="Job">
+        <PropertyRef Name="PersonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__JobListin__Agent__18EBB532">
+    <End Role="Headhunter" Type="Self.Headhunter" Multiplicity="0..1" />
+    <End Role="JobListing" Type="Self.JobListing" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Headhunter">
+        <PropertyRef Name="HeadhunterId" />
+      </Principal>
+      <Dependent Role="JobListing">
+        <PropertyRef Name="AgentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <!--Errors Found During Generation:
+warning 6035: The relationship 'FK__JobListin__Desir__1CBC4616' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK__JobListin__Desir__1CBC4616" />-->
+  <!--Errors Found During Generation:
+warning 6035: The relationship 'FK__JobListin__Emplo__1AD3FDA4' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK__JobListin__Emplo__1AD3FDA4" />-->
+  <Association Name="FK__JobListin__JobSe__17036CC0">
+    <End Role="JobSearch" Type="Self.JobSearch" Multiplicity="0..1" />
+    <End Role="JobListing" Type="Self.JobListing" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JobSearch">
+        <PropertyRef Name="JobSearchId" />
+      </Principal>
+      <Dependent Role="JobListing">
+        <PropertyRef Name="JobSearchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <!--Errors Found During Generation:
+warning 6035: The relationship 'FK__JobListin__Listi__17F790F9' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK__JobListin__Listi__17F790F9" />-->
+  <!--Errors Found During Generation:
+warning 6035: The relationship 'FK__JobListin__Listi__1BC821DD' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK__JobListin__Listi__1BC821DD" />-->
+  <Association Name="FK__JobListin__Targe__19DFD96B">
+    <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
+    <End Role="JobListing" Type="Self.JobListing" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Company">
+        <PropertyRef Name="CompanyId" />
+      </Principal>
+      <Dependent Role="JobListing">
+        <PropertyRef Name="TargetCompany" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <!--Errors Found During Generation:
+warning 6035: The relationship 'FK__JobListing__Fit__1DB06A4F' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK__JobListing__Fit__1DB06A4F" />-->
+  <!--Errors Found During Generation:
+warning 6035: The relationship 'FK__JobSearch__Activ__2739D489' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK__JobSearch__Activ__2739D489" />-->
+  <!--Errors Found During Generation:
+warning 6035: The relationship 'FK__JobSearch__Activ__282DF8C2' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK__JobSearch__Activ__282DF8C2" />-->
+  <Association Name="FK__JobSearch__JobLi__2645B050">
+    <End Role="JobListing" Type="Self.JobListing" Multiplicity="0..1" />
+    <End Role="JobSearchActivity" Type="Self.JobSearchActivity" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JobListing">
+        <PropertyRef Name="JobListingId" />
+      </Principal>
+      <Dependent Role="JobSearchActivity">
+        <PropertyRef Name="JobListingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__JobSearch__Perso__1332DBDC">
+    <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+    <End Role="JobSearch" Type="Self.JobSearch" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="PersonId" />
+      </Principal>
+      <Dependent Role="JobSearch">
+        <PropertyRef Name="PersonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <!--Errors Found During Generation:
+warning 6035: The relationship 'FK__JobSkill__Requir__22751F6C' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK__JobSkill__Requir__22751F6C" />-->
+  <!--Errors Found During Generation:
+warning 6035: The relationship 'FK__JobSkill__SkillI__2180FB33' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK__JobSkill__SkillI__2180FB33" />-->
+  <EntityContainer Name="GetaJobModelStoreContainer">
+    <EntitySet Name="Agency" EntityType="Self.Agency" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EntityDevice" EntityType="Self.EntityDevice" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Headhunter" EntityType="Self.Headhunter" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Job" EntityType="Self.Job" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="JobListing" EntityType="Self.JobListing" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="JobSearch" EntityType="Self.JobSearch" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="JobSearchActivity" EntityType="Self.JobSearchActivity" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="JobSkill" EntityType="Self.JobSkill" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PostalCode" EntityType="Self.PostalCode" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Ref" EntityType="Self.Ref" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Agency__CompanyI__05D8E0BE" Association="Self.FK__Agency__CompanyI__05D8E0BE">
+      <End Role="Company" EntitySet="Company" />
+      <End Role="Agency" EntitySet="Agency" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Company__PostalC__02FC7413" Association="Self.FK__Company__PostalC__02FC7413">
+      <End Role="PostalCode" EntitySet="PostalCode" />
+      <End Role="Company" EntitySet="Company" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Headhunte__Agenc__09A971A2" Association="Self.FK__Headhunte__Agenc__09A971A2">
+      <End Role="Agency" EntitySet="Agency" />
+      <End Role="Headhunter" EntitySet="Headhunter" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Headhunte__Perso__0A9D95DB" Association="Self.FK__Headhunte__Perso__0A9D95DB">
+      <End Role="Person" EntitySet="Person" />
+      <End Role="Headhunter" EntitySet="Headhunter" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Job__CompanyId__30C33EC3" Association="Self.FK__Job__CompanyId__30C33EC3">
+      <End Role="Company" EntitySet="Company" />
+      <End Role="Job" EntitySet="Job" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Job__PersonId__2FCF1A8A" Association="Self.FK__Job__PersonId__2FCF1A8A">
+      <End Role="Person" EntitySet="Person" />
+      <End Role="Job" EntitySet="Job" />
+    </AssociationSet>
+    <AssociationSet Name="FK__JobListin__Agent__18EBB532" Association="Self.FK__JobListin__Agent__18EBB532">
+      <End Role="Headhunter" EntitySet="Headhunter" />
+      <End Role="JobListing" EntitySet="JobListing" />
+    </AssociationSet>
+    <AssociationSet Name="FK__JobListin__JobSe__17036CC0" Association="Self.FK__JobListin__JobSe__17036CC0">
+      <End Role="JobSearch" EntitySet="JobSearch" />
+      <End Role="JobListing" EntitySet="JobListing" />
+    </AssociationSet>
+    <AssociationSet Name="FK__JobListin__Targe__19DFD96B" Association="Self.FK__JobListin__Targe__19DFD96B">
+      <End Role="Company" EntitySet="Company" />
+      <End Role="JobListing" EntitySet="JobListing" />
+    </AssociationSet>
+    <AssociationSet Name="FK__JobSearch__JobLi__2645B050" Association="Self.FK__JobSearch__JobLi__2645B050">
+      <End Role="JobListing" EntitySet="JobListing" />
+      <End Role="JobSearchActivity" EntitySet="JobSearchActivity" />
+    </AssociationSet>
+    <AssociationSet Name="FK__JobSearch__Perso__1332DBDC" Association="Self.FK__JobSearch__Perso__1332DBDC">
+      <End Role="Person" EntitySet="Person" />
+      <End Role="JobSearch" EntitySet="JobSearch" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8f26a42e48c14ae9acd42e831fe397cc" Name="Diagram1">
+        <EntityTypeShape EntityType="GetaJobModel.Agency" Width="1.5" PointX="0.75" PointY="12.25" />
+        <EntityTypeShape EntityType="GetaJobModel.Agent" Width="1.5" PointX="3" PointY="12.5" />
+        <EntityTypeShape EntityType="GetaJobModel.GetaJob_User" Width="1.5" PointX="0.75" PointY="4.625" />
+        <EntityTypeShape EntityType="GetaJobModel.Job" Width="1.5" PointX="3" PointY="4.5" />
+        <EntityTypeShape EntityType="GetaJobModel.JobSearch" Width="1.5" PointX="3" PointY="8.5" />
+        <EntityTypeShape EntityType="GetaJobModel.TargetCompany" Width="1.5" PointX="0.75" PointY="0.75" />
+        <AssociationConnector Association="GetaJobModel.FK__Agent__AgencyId__7854C86E" />
+        <AssociationConnector Association="GetaJobModel.FK__Job__UserId__02D256E1" />
+        <AssociationConnector Association="GetaJobModel.FK__JobSearch__UserI__71A7CADF" />
+        <AssociationConnector Association="GetaJobModel.FK__Job__CompanyId__03C67B1A" />
+        <EntityTypeShape EntityType="GetaJobModel.DropDownValue" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="GetaJobModel.JobListing" Width="1.5" PointX="5.25" PointY="8.625" />
+        <EntityTypeShape EntityType="GetaJobModel.JobListingRequirement" Width="1.5" PointX="7.5" PointY="4.875" />
+        <EntityTypeShape EntityType="GetaJobModel.JobSearchActivity" Width="1.5" PointX="7.5" PointY="9.875" />
+        <EntityTypeShape EntityType="GetaJobModel.JobSkill" Width="1.5" PointX="5.25" PointY="4.75" />
+        <AssociationConnector Association="GetaJobModel.FK__JobListin__Agent__5105F123" />
+        <AssociationConnector Association="GetaJobModel.FK__JobSkill__JoId__5B837F96" />
+        <AssociationConnector Association="GetaJobModel.FK__JobListin__JobLi__5E5FEC41" />
+        <AssociationConnector Association="GetaJobModel.FK__JobListin__JobSe__5011CCEA" />
+        <AssociationConnector Association="GetaJobModel.FK__JobListin__Targe__51FA155C" />
+        <AssociationConnector Association="GetaJobModel.FK__JobSearch__JobLi__54D68207" />
+        <AssociationConnector Association="GetaJobModel.FK__JobListin__JobSk__5F54107A" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

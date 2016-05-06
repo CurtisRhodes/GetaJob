@@ -1,0 +1,218 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="curtisGodaddyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="curtisGodaddyEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Agencies" EntityType="curtisGodaddyModel.Agency" />
+    <EntitySet Name="Agents" EntityType="curtisGodaddyModel.Agent" />
+    <EntitySet Name="JobListings" EntityType="curtisGodaddyModel.JobListing" />
+    <EntitySet Name="JobSearches" EntityType="curtisGodaddyModel.JobSearch" />
+    <EntitySet Name="JobSearchActivities" EntityType="curtisGodaddyModel.JobSearchActivity" />
+    <EntitySet Name="TargetCompanies" EntityType="curtisGodaddyModel.TargetCompany" />
+    <EntitySet Name="DropDownValues" EntityType="curtisGodaddyModel.DropDownValue" />
+    <EntitySet Name="GetaJob_User" EntityType="curtisGodaddyModel.GetaJob_User" />
+    <EntitySet Name="Jobs" EntityType="curtisGodaddyModel.Job" />
+    <EntitySet Name="JobListingRequirements" EntityType="curtisGodaddyModel.JobListingRequirement" />
+    <EntitySet Name="JobSkills" EntityType="curtisGodaddyModel.JobSkill" />
+    <AssociationSet Name="FK_Agent_Agency" Association="curtisGodaddyModel.FK_Agent_Agency">
+      <End Role="Agency" EntitySet="Agencies" />
+      <End Role="Agent" EntitySet="Agents" />
+    </AssociationSet>
+    <AssociationSet Name="FK_JobListing_Agent" Association="curtisGodaddyModel.FK_JobListing_Agent">
+      <End Role="Agent" EntitySet="Agents" />
+      <End Role="JobListing" EntitySet="JobListings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_JobListing_JobSearch" Association="curtisGodaddyModel.FK_JobListing_JobSearch">
+      <End Role="JobSearch" EntitySet="JobSearches" />
+      <End Role="JobListing" EntitySet="JobListings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_JobListing_TargetCompany" Association="curtisGodaddyModel.FK_JobListing_TargetCompany">
+      <End Role="TargetCompany" EntitySet="TargetCompanies" />
+      <End Role="JobListing" EntitySet="JobListings" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Agency">
+    <Key>
+      <PropertyRef Name="AgencyId" />
+    </Key>
+    <Property Name="AgencyId" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="StreetAddress" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="City" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="State" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+    <Property Name="Zip" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="WorkPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CellPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Agents" Relationship="curtisGodaddyModel.FK_Agent_Agency" FromRole="Agency" ToRole="Agent" />
+  </EntityType>
+  <EntityType Name="Agent">
+    <Key>
+      <PropertyRef Name="AgentId" />
+    </Key>
+    <Property Name="AgentId" Type="Int32" Nullable="false" />
+    <Property Name="AgencyId" Type="Int32" />
+    <Property Name="AgentName" Type="String" MaxLength="350" FixedLength="false" Unicode="false" />
+    <Property Name="WorkPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CellPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Agency" Relationship="curtisGodaddyModel.FK_Agent_Agency" FromRole="Agent" ToRole="Agency" />
+    <NavigationProperty Name="JobListings" Relationship="curtisGodaddyModel.FK_JobListing_Agent" FromRole="Agent" ToRole="JobListing" />
+  </EntityType>
+  <EntityType Name="JobListing">
+    <Key>
+      <PropertyRef Name="JobListingId" />
+    </Key>
+    <Property Name="JobListingId" Type="Int32" Nullable="false" />
+    <Property Name="JobSearchId" Type="Int32" />
+    <Property Name="PostedDate" Type="DateTime" Precision="0" />
+    <Property Name="ListingStatus" Type="Int32" />
+    <Property Name="AgentId" Type="Int32" />
+    <Property Name="TargetCompanyId" Type="Int32" />
+    <Property Name="JobTitle" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Rate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="EmploymentType" Type="Int32" />
+    <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Distance" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="ListingSource" Type="Int32" />
+    <Property Name="Desirability" Type="Int32" />
+    <Property Name="Fit" Type="Int32" />
+    <NavigationProperty Name="Agent" Relationship="curtisGodaddyModel.FK_JobListing_Agent" FromRole="JobListing" ToRole="Agent" />
+    <NavigationProperty Name="JobSearch" Relationship="curtisGodaddyModel.FK_JobListing_JobSearch" FromRole="JobListing" ToRole="JobSearch" />
+    <NavigationProperty Name="TargetCompany" Relationship="curtisGodaddyModel.FK_JobListing_TargetCompany" FromRole="JobListing" ToRole="TargetCompany" />
+  </EntityType>
+  <EntityType Name="JobSearch">
+    <Key>
+      <PropertyRef Name="JobSearchId" />
+    </Key>
+    <Property Name="JobSearchId" Type="Int32" Nullable="false" />
+    <Property Name="Start" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Completed" Type="DateTime" Precision="0" />
+    <Property Name="Description" Type="String" MaxLength="950" FixedLength="false" Unicode="false" />
+    <Property Name="UserId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="JobListings" Relationship="curtisGodaddyModel.FK_JobListing_JobSearch" FromRole="JobSearch" ToRole="JobListing" />
+  </EntityType>
+  <EntityType Name="JobSearchActivity">
+    <Key>
+      <PropertyRef Name="JobSearchActivityId" />
+    </Key>
+    <Property Name="JobSearchActivityId" Type="Int32" Nullable="false" />
+    <Property Name="JobListingId" Type="Int32" />
+    <Property Name="ActivityDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="ActivityStatus" Type="Int32" />
+    <Property Name="Comments" Type="String" MaxLength="600" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="TargetCompany">
+    <Key>
+      <PropertyRef Name="CompanyId" />
+    </Key>
+    <Property Name="CompanyId" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="StreetAddress" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="City" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="State" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+    <Property Name="Zip" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="JobListings" Relationship="curtisGodaddyModel.FK_JobListing_TargetCompany" FromRole="TargetCompany" ToRole="JobListing" />
+  </EntityType>
+  <EntityType Name="DropDownValue">
+    <Key>
+      <PropertyRef Name="RefCode" />
+      <PropertyRef Name="RefDescription" />
+    </Key>
+    <Property Name="RefType" Type="Int32" />
+    <Property Name="RefCode" Type="Int32" Nullable="false" />
+    <Property Name="RefDescription" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="GetaJob_User">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="CurrentJobSearchId" Type="Int32" />
+    <Property Name="dob" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="Job">
+    <Key>
+      <PropertyRef Name="JobId" />
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="CompanyId" />
+    </Key>
+    <Property Name="JobId" Type="Int32" Nullable="false" />
+    <Property Name="UserId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CompanyId" Type="Int32" Nullable="false" />
+    <Property Name="DateOfEmployment" Type="DateTime" Precision="0" />
+    <Property Name="Terminated" Type="DateTime" Precision="0" />
+    <Property Name="Explanation" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="JobTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="JobListingRequirement">
+    <Key>
+      <PropertyRef Name="JobListingRequirementId" />
+    </Key>
+    <Property Name="JobListingRequirementId" Type="Int32" Nullable="false" />
+    <Property Name="JobListingId" Type="Int32" />
+    <Property Name="JobSkillId" Type="Int32" />
+    <Property Name="DesiredId" Type="Int32" />
+  </EntityType>
+  <EntityType Name="JobSkill">
+    <Key>
+      <PropertyRef Name="JobSkillId" />
+      <PropertyRef Name="JoId" />
+    </Key>
+    <Property Name="JobSkillId" Type="Int32" Nullable="false" />
+    <Property Name="JoId" Type="Int32" Nullable="false" />
+    <Property Name="JobSkillTitle" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="JobSkill1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="JobSkillType" Type="Int32" />
+  </EntityType>
+  <Association Name="FK_Agent_Agency">
+    <End Type="curtisGodaddyModel.Agency" Role="Agency" Multiplicity="0..1" />
+    <End Type="curtisGodaddyModel.Agent" Role="Agent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Agency">
+        <PropertyRef Name="AgencyId" />
+      </Principal>
+      <Dependent Role="Agent">
+        <PropertyRef Name="AgencyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_JobListing_Agent">
+    <End Type="curtisGodaddyModel.Agent" Role="Agent" Multiplicity="0..1" />
+    <End Type="curtisGodaddyModel.JobListing" Role="JobListing" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Agent">
+        <PropertyRef Name="AgentId" />
+      </Principal>
+      <Dependent Role="JobListing">
+        <PropertyRef Name="AgentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_JobListing_JobSearch">
+    <End Type="curtisGodaddyModel.JobSearch" Role="JobSearch" Multiplicity="0..1" />
+    <End Type="curtisGodaddyModel.JobListing" Role="JobListing" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JobSearch">
+        <PropertyRef Name="JobSearchId" />
+      </Principal>
+      <Dependent Role="JobListing">
+        <PropertyRef Name="JobSearchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_JobListing_TargetCompany">
+    <End Type="curtisGodaddyModel.TargetCompany" Role="TargetCompany" Multiplicity="0..1" />
+    <End Type="curtisGodaddyModel.JobListing" Role="JobListing" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TargetCompany">
+        <PropertyRef Name="CompanyId" />
+      </Principal>
+      <Dependent Role="JobListing">
+        <PropertyRef Name="TargetCompanyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

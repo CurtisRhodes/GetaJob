@@ -1,0 +1,65 @@
+﻿
+@{
+    ViewBag.Title = "Job Searchs";
+}
+
+
+@section scripts {
+    <script src="~/Scripts/jobSearchCtrl.js"></script>
+}
+
+
+
+<div ng-app="MyApp" ng-controller="jobSearchCtrl" ng-init="init()">
+
+    <div class="form-horizontal">
+        <fieldset>
+            <div class="form-horizontal">
+                <h4>Job Searchs</h4>
+                <hr />
+                <div class="form-group">
+                    <label for="inputEmail" class="col-lg-3 control-label">Description</label>
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control" ng-disabled="disabled" ng-model="selectedJobSearch.description" ng-required="true">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail" class="col-lg-3 control-label">Start</label>
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control" ng-disabled="disabled" ng-model="selectedJobSearch.start" ng-required="true">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail" class="col-lg-3 control-label">Completed</label>
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control" ng-disabled="disabled" ng-model="selectedJobSearch.completed" ng-required="true">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="{{AddSaveLabel}}" class="btn btn-default" ng-click="AddSave()" />
+                        <input type="submit" value="{{EditCancelLabel}}" class="btn btn-default" ng-click="EditCancel()" />
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+
+
+    <h2>{{Stupid}}</h2>
+
+    <div >
+        <table class="table table-bordered table-hover">
+            <tr>
+                <th>Start</th>
+                <th>Description</th>
+                <th>Completed</th>
+            </tr>
+            <tr ng-repeat="jobSearch in jobSearches" ng-click="LoadDetail(jobSearch)" >
+                <td>{{jobSearch.start}}</td>
+                <td>{{jobSearch.description}}</td>
+                <td>{{jobSearch.completed}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
